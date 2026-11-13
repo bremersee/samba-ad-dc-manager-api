@@ -3019,14 +3019,8 @@ components:
         zoneType:
           type: string
           description: The zone type.
-        useWins:
-          type: boolean
         paused:
           type: boolean
-        aging:
-          type: boolean
-        fqdn:
-          type: string
         allowUpdate:
           type: string
         autoCreated:
@@ -3035,8 +3029,14 @@ components:
           type: boolean
         dataFile:
           type: string
+        useWins:
+          type: boolean
         useNbstat:
           type: boolean
+        aging:
+          type: boolean
+        fqdn:
+          type: string
         queuedForBackgroundLoad:
           type: boolean
         backgroundLoadInProgress:
@@ -3505,46 +3505,55 @@ components:
       - group
       - computer
     DomainGroupMember:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
-          memberships:
-            type: array
-            items:
-              type: string
-          member:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a member of the requested
-              group or not.
-          primaryGroupId:
-            type: integer
-            format: int32
-            description: The primary group ID of the member.
-          primaryMember:
-            type: boolean
-            default: false
-            description: Determines whether the requested group is the primary group
-              if this sam account or not.
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
-          displayName:
-            type: string
-            description: The display name of the member.
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
+      type: object
       description: The domain group.
+      properties:
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
+        memberships:
+          type: array
+          items:
+            type: string
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        member:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a member of the requested
+            group or not.
+        primaryGroupId:
+          type: integer
+          format: int32
+          description: The primary group ID of the member.
+        primaryMember:
+          type: boolean
+          default: false
+          description: Determines whether the requested group is the primary group
+            if this sam account or not.
+        memberType:
+          $ref: "#/components/schemas/DomainGroupMemberType"
+          description: The type of the member.
+        displayName:
+          type: string
+          description: The display name of the member.
+        samAccountName:
+          type: string
+          description: The unique name of the sam account.
+        criticalSystemObject:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a critical system object
+            or not.
       required:
       - displayName
       - memberType
@@ -3611,9 +3620,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        dhcpEnabled:
-          type: boolean
         mailEnabled:
+          type: boolean
+        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3901,6 +3910,14 @@ components:
       description: Active directory base entry.
       discriminator:
         propertyName: _type
+        mapping:
+          dns-entry: "#/components/schemas/null"
+          dns-zone: "#/components/schemas/null"
+          computer: "#/components/schemas/null"
+          group: "#/components/schemas/null"
+          group-member: "#/components/schemas/DomainGroupMember"
+          user: "#/components/schemas/null"
+          organizational-unit: "#/components/schemas/null"
       properties:
         modified:
           type: string
@@ -3960,7 +3977,6 @@ components:
           description: The content of the page.
           items:
             oneOf:
-            - $ref: "#/components/schemas/DomainGroupMember"
             - $ref: "#/components/schemas/ImmutableDnsEntry"
             - $ref: "#/components/schemas/ImmutableDnsZone"
             - $ref: "#/components/schemas/ImmutableDomainComputer"
