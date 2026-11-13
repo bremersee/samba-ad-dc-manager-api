@@ -2612,10 +2612,7 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AdEntryPage"
+          content: {}
         "400":
           description: Bad request
           content:
@@ -2735,8 +2732,6 @@ components:
       type: object
       description: The domain user.
       properties:
-        title:
-          type: string
         homeDirectory:
           type: string
         email:
@@ -2802,9 +2797,11 @@ components:
         lastLogon:
           type: string
           format: date-time
-        displayName:
+        title:
           type: string
         initials:
+          type: string
+        displayName:
           type: string
         description:
           type: string
@@ -2870,32 +2867,8 @@ components:
       required:
       - value
     OrganizationalUnit:
-      type: object
-      description: The organizational unit in an active directory.
-      properties:
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        description:
-          type: string
-        distinguishedName:
-          type: string
-          description: The distinguished name.
-        systemOu:
-          type: boolean
-          default: false
-          description: Determines whether this organizational unit is a system one
-            or not.
-        name:
-          type: string
-          description: The name of this organizational unit.
-      required:
-      - name
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
     DomainGroup:
       type: object
       description: The domain group.
@@ -3000,109 +2973,11 @@ components:
             type: string
           uniqueItems: true
     DnsZone:
-      type: object
-      description: DNS zone.
-      properties:
-        shutdown:
-          type: boolean
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        reverseZone:
-          type: boolean
-          description: Specifies whether this zone is a reverse zone or not.
-        zoneType:
-          type: string
-          description: The zone type.
-        paused:
-          type: boolean
-        allowUpdate:
-          type: string
-        autoCreated:
-          type: boolean
-        useDatabase:
-          type: boolean
-        dataFile:
-          type: string
-        useWins:
-          type: boolean
-        useNbstat:
-          type: boolean
-        aging:
-          type: boolean
-        fqdn:
-          type: string
-        queuedForBackgroundLoad:
-          type: boolean
-        backgroundLoadInProgress:
-          type: boolean
-        readOnlyZone:
-          type: boolean
-        distinguishedName:
-          type: string
-          description: The distinguished name.
-        name:
-          type: string
-          description: The zone name.
-      required:
-      - name
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
     DnsEntry:
-      type: object
-      description: DNS entry.
-      properties:
-        zoneName:
-          type: string
-          description: The zone name of this dns entry.
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        ttlSeconds:
-          type: integer
-          format: int32
-          description: The ttl seconds of this dns entry.
-        serial:
-          type: integer
-          format: int32
-          description: The serial of this dns entry.
-        flags:
-          type: string
-          description: The flags of this dns entry.
-        distinguishedName:
-          type: string
-          description: The distinguished name.
-        conflict:
-          type: boolean
-          default: false
-          description: Determines whether this DNS entry is marked as conflict or
-            not.
-          readOnly: true
-        name:
-          type: string
-          description: The name of this dns entry.
-        value:
-          type: string
-          description: The value of this dns entry.
-        type:
-          $ref: "#/components/schemas/DnsEntryType"
-          description: The type of this dns entry.
-        displayName:
-          type: string
-          description: The display name of this dns entry.
-          readOnly: true
-      required:
-      - name
-      - type
-      - value
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
     DnsEntryType:
       type: string
       description: The type of a DNS record.
@@ -3505,46 +3380,55 @@ components:
       - group
       - computer
     DomainGroupMember:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
-          memberships:
-            type: array
-            items:
-              type: string
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
-          member:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a member of the requested
-              group or not.
-          primaryGroupId:
-            type: integer
-            format: int32
-            description: The primary group ID of the member.
-          primaryMember:
-            type: boolean
-            default: false
-            description: Determines whether the requested group is the primary group
-              if this sam account or not.
-          displayName:
-            type: string
-            description: The display name of the member.
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
+      type: object
       description: The domain group.
+      properties:
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
+        memberships:
+          type: array
+          items:
+            type: string
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        member:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a member of the requested
+            group or not.
+        primaryGroupId:
+          type: integer
+          format: int32
+          description: The primary group ID of the member.
+        primaryMember:
+          type: boolean
+          default: false
+          description: Determines whether the requested group is the primary group
+            if this sam account or not.
+        memberType:
+          $ref: "#/components/schemas/DomainGroupMemberType"
+          description: The type of the member.
+        displayName:
+          type: string
+          description: The display name of the member.
+        samAccountName:
+          type: string
+          description: The unique name of the sam account.
+        criticalSystemObject:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a critical system object
+            or not.
       required:
       - displayName
       - memberType
@@ -3897,10 +3781,7 @@ components:
       - totalElements
       - totalPages
     AdEntry:
-      type: object
       description: Active directory base entry.
-      discriminator:
-        propertyName: _type
       properties:
         modified:
           type: string
@@ -3913,92 +3794,6 @@ components:
           type: string
           format: date-time
           description: The creation date.
-        _type:
-          type: string
-      required:
-      - _type
-    AdEntryPage:
-      type: object
-      properties:
-        number:
-          type: integer
-          format: int32
-          description: The page or slice number starting with 0.
-        size:
-          type: integer
-          format: int32
-          description: The size of the page or slice (not the size of the content).
-        nextAvailable:
-          type: boolean
-          description: Indicates whether a next page or slice is available.
-        totalElements:
-          type: integer
-          format: int64
-          description: The size of available elements.
-        totalPages:
-          type: integer
-          format: int32
-          description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
-        contentPresent:
-          type: boolean
-          description: Indicates whether the content is present.
-        numberOfElements:
-          type: integer
-          format: int32
-          description: The number of elements.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        content:
-          type: array
-          description: The content of the page.
-          items:
-            oneOf:
-            - $ref: "#/components/schemas/DomainGroupMember"
-            - $ref: "#/components/schemas/ImmutableDnsEntry"
-            - $ref: "#/components/schemas/ImmutableDnsZone"
-            - $ref: "#/components/schemas/ImmutableDomainComputer"
-            - $ref: "#/components/schemas/ImmutableDomainGroup"
-            - $ref: "#/components/schemas/ImmutableDomainUser"
-            - $ref: "#/components/schemas/ImmutableOrganizationalUnit"
-        sort:
-          $ref: "#/components/schemas/SortOrder"
-          description: The sort order.
-      required:
-      - contentPresent
-      - first
-      - last
-      - nextAvailable
-      - number
-      - numberOfElements
-      - previousAvailable
-      - size
-      - totalElements
-      - totalPages
-    ImmutableDnsEntry:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableDnsZone:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableDomainComputer:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableDomainGroup:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableDomainUser:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableOrganizationalUnit:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
   securitySchemes:
     basic-auth:
       type: http
