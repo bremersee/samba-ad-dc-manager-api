@@ -146,7 +146,9 @@ paths:
           default: false
       requestBody:
         content:
-          application/json: {}
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DomainUser"
         required: true
       responses:
         "200":
@@ -290,7 +292,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json: {}
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DomainUser"
         required: true
       responses:
         "200":
@@ -707,7 +711,9 @@ paths:
           example: CN=Contacts
       requestBody:
         content:
-          application/json: {}
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrganizationalUnit"
         required: true
       responses:
         "200":
@@ -825,7 +831,9 @@ paths:
           example: CN=Telephone Book
       requestBody:
         content:
-          application/json: {}
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrganizationalUnit"
         required: true
       responses:
         "200":
@@ -1008,7 +1016,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json: {}
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DomainGroup"
         required: true
       responses:
         "200":
@@ -1151,7 +1161,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json: {}
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DomainGroup"
         required: true
       responses:
         "200":
@@ -1958,7 +1970,9 @@ paths:
           type: string
       requestBody:
         content:
-          application/json: {}
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DomainComputer"
         required: true
       responses:
         "200":
@@ -2608,7 +2622,10 @@ paths:
       responses:
         "200":
           description: OK
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdEntryPage"
         "400":
           description: Bad request
           content:
@@ -2644,6 +2661,135 @@ paths:
       - basic-auth: []
 components:
   schemas:
+    DomainUser:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+      - type: object
+        properties:
+          title:
+            type: string
+          homeDirectory:
+            type: string
+          email:
+            type: string
+          uid:
+            type: string
+          userPrincipalName:
+            type: string
+          unixHomeDirectory:
+            type: string
+          passwordLastSet:
+            type: string
+            format: date-time
+          company:
+            type: string
+          department:
+            type: string
+          gecos:
+            type: string
+          loginShell:
+            type: string
+          nisDomain:
+            type: string
+          physicalDeliveryOfficeName:
+            type: string
+          profilePath:
+            type: string
+          scriptPath:
+            type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
+          gidNumber:
+            type: integer
+            format: int32
+          sid:
+            $ref: "#/components/schemas/Sid"
+            description: The SID of the sam account.
+          uidNumber:
+            type: integer
+            format: int32
+          accountExpires:
+            type: string
+            format: date-time
+          homeDrive:
+            type: string
+          mobile:
+            type: string
+          telephoneNumber:
+            type: string
+          logonCount:
+            type: integer
+            format: int32
+          lastLogon:
+            type: string
+            format: date-time
+          initials:
+            type: string
+          displayName:
+            type: string
+          description:
+            type: string
+          memberships:
+            type: array
+            items:
+              type: string
+          primaryGroupId:
+            type: integer
+            format: int32
+            description: The primary group ID of the user.
+          preferredLanguage:
+            type: string
+            default: de-DE
+            description: User's preferred language. ISO 639-1 language codes. The
+              combinations like de-DE and en-US with ISO-639 and ISO-3166 also work.
+          accountControl:
+            $ref: "#/components/schemas/DomainUserAccountControl"
+            description: User's account control.
+          samAccountName:
+            type: string
+            description: The unique name of the sam account.
+          criticalSystemObject:
+            type: boolean
+            default: false
+            description: Determines whether this sam account is a critical system
+              object or not.
+      description: The domain user.
+      required:
+      - accountControl
+      - samAccountName
+    DomainUserAccountControl:
+      type: object
+      description: Domain user's account control.
+      properties:
+        normalAccount:
+          type: boolean
+          default: true
+          description: Specifies whether the account of the domain user is a normal
+            one or not.
+        passwordExpirationEnabled:
+          type: boolean
+          default: false
+          description: Specifies whether the password expiration is enabled or not.
+        enabled:
+          type: boolean
+          default: true
+          description: Specifies whether the domain user is enabled or not.
+    Sid:
+      type: object
+      description: The SID of the entity.
+      properties:
+        value:
+          type: string
+          description: The SID of the entity.
+        systemEntity:
+          type: boolean
+          default: false
+          description: Determines whether this SID belongs to a system entity or not.
+          readOnly: true
+      required:
+      - value
     Handler:
       type: object
       description: The handler where the exception occurred.
@@ -2724,203 +2870,71 @@ components:
           type: integer
           format: int32
           description: The line number.
-    DomainUser:
-      type: object
-      description: The domain user.
-      properties:
-        title:
-          type: string
-        homeDirectory:
-          type: string
-        email:
-          type: string
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        uid:
-          type: string
-        userPrincipalName:
-          type: string
-        unixHomeDirectory:
-          type: string
-        passwordLastSet:
-          type: string
-          format: date-time
-        company:
-          type: string
-        department:
-          type: string
-        gecos:
-          type: string
-        loginShell:
-          type: string
-        nisDomain:
-          type: string
-        physicalDeliveryOfficeName:
-          type: string
-        profilePath:
-          type: string
-        scriptPath:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        gidNumber:
-          type: integer
-          format: int32
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        sid:
-          $ref: "#/components/schemas/Sid"
-          description: The SID of the sam account.
-        uidNumber:
-          type: integer
-          format: int32
-        accountExpires:
-          type: string
-          format: date-time
-        homeDrive:
-          type: string
-        mobile:
-          type: string
-        telephoneNumber:
-          type: string
-        logonCount:
-          type: integer
-          format: int32
-        lastLogon:
-          type: string
-          format: date-time
-        initials:
-          type: string
-        displayName:
-          type: string
-        description:
-          type: string
-        memberships:
-          type: array
-          items:
-            type: string
-        distinguishedName:
-          type: string
-          description: The distinguished name.
-        primaryGroupId:
-          type: integer
-          format: int32
-          description: The primary group ID of the user.
-        preferredLanguage:
-          type: string
-          default: de-DE
-          description: User's preferred language. ISO 639-1 language codes. The combinations
-            like de-DE and en-US with ISO-639 and ISO-3166 also work.
-        accountControl:
-          $ref: "#/components/schemas/DomainUserAccountControl"
-          description: User's account control.
-        samAccountName:
-          type: string
-          description: The unique name of the sam account.
-        criticalSystemObject:
-          type: boolean
-          default: false
-          description: Determines whether this sam account is a critical system object
-            or not.
-      required:
-      - accountControl
-      - samAccountName
-    DomainUserAccountControl:
-      type: object
-      description: Domain user's account control.
-      properties:
-        normalAccount:
-          type: boolean
-          default: true
-          description: Specifies whether the account of the domain user is a normal
-            one or not.
-        passwordExpirationEnabled:
-          type: boolean
-          default: false
-          description: Specifies whether the password expiration is enabled or not.
-        enabled:
-          type: boolean
-          default: true
-          description: Specifies whether the domain user is enabled or not.
-    Sid:
-      type: object
-      description: The SID of the entity.
-      properties:
-        value:
-          type: string
-          description: The SID of the entity.
-        systemEntity:
-          type: boolean
-          default: false
-          description: Determines whether this SID belongs to a system entity or not.
-          readOnly: true
-      required:
-      - value
     OrganizationalUnit:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
+      - type: object
+        properties:
+          description:
+            type: string
+          systemOu:
+            type: boolean
+            default: false
+            description: Determines whether this organizational unit is a system one
+              or not.
+          name:
+            type: string
+            description: The name of this organizational unit.
+      description: The organizational unit in an active directory.
+      required:
+      - name
     DomainGroup:
-      type: object
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+      - type: object
+        properties:
+          members:
+            type: array
+            description: The members of the domain group.
+            items:
+              type: string
+          email:
+            type: string
+            description: The email address of the domain group.
+          nisDomain:
+            type: string
+            description: Group's Unix/RFC2307 NIS domain.
+          gidNumber:
+            type: integer
+            format: int32
+            description: Group's Unix/RFC2307 GID number.
+          description:
+            type: string
+            description: The description of the domain group.
+          memberships:
+            type: array
+            items:
+              type: string
+          sid:
+            $ref: "#/components/schemas/Sid"
+            description: The SID of the sam account.
+          groupType:
+            $ref: "#/components/schemas/DomainGroupType"
+            description: The type of the domain group.
+          groupId:
+            type: integer
+            format: int32
+            description: The group id of this domain group.
+            readOnly: true
+          samAccountName:
+            type: string
+            description: The unique name of the sam account.
+          criticalSystemObject:
+            type: boolean
+            default: false
+            description: Determines whether this sam account is a critical system
+              object or not.
       description: The domain group.
-      properties:
-        members:
-          type: array
-          description: The members of the domain group.
-          items:
-            type: string
-        email:
-          type: string
-          description: The email address of the domain group.
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        nisDomain:
-          type: string
-          description: Group's Unix/RFC2307 NIS domain.
-        gidNumber:
-          type: integer
-          format: int32
-          description: Group's Unix/RFC2307 GID number.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        description:
-          type: string
-          description: The description of the domain group.
-        memberships:
-          type: array
-          items:
-            type: string
-        sid:
-          $ref: "#/components/schemas/Sid"
-          description: The SID of the sam account.
-        distinguishedName:
-          type: string
-          description: The distinguished name.
-        groupType:
-          $ref: "#/components/schemas/DomainGroupType"
-          description: The type of the domain group.
-        groupId:
-          type: integer
-          format: int32
-          description: The group id of this domain group.
-          readOnly: true
-        samAccountName:
-          type: string
-          description: The unique name of the sam account.
-        criticalSystemObject:
-          type: boolean
-          default: false
-          description: Determines whether this sam account is a critical system object
-            or not.
       required:
       - samAccountName
     DomainGroupType:
@@ -2971,6 +2985,46 @@ components:
     DnsZone:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
+      - type: object
+        properties:
+          shutdown:
+            type: boolean
+          reverseZone:
+            type: boolean
+            description: Specifies whether this zone is a reverse zone or not.
+          zoneType:
+            type: string
+            description: The zone type.
+          paused:
+            type: boolean
+          allowUpdate:
+            type: string
+          autoCreated:
+            type: boolean
+          useDatabase:
+            type: boolean
+          dataFile:
+            type: string
+          useWins:
+            type: boolean
+          useNbstat:
+            type: boolean
+          aging:
+            type: boolean
+          fqdn:
+            type: string
+          queuedForBackgroundLoad:
+            type: boolean
+          backgroundLoadInProgress:
+            type: boolean
+          readOnlyZone:
+            type: boolean
+          name:
+            type: string
+            description: The zone name.
+      description: DNS zone.
+      required:
+      - name
     DnsEntry:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
@@ -2983,13 +3037,13 @@ components:
             type: integer
             format: int32
             description: The ttl seconds of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
           serial:
             type: integer
             format: int32
             description: The serial of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
           conflict:
             type: boolean
             default: false
@@ -3102,61 +3156,52 @@ components:
       - TA
       - DLV
     DomainComputer:
-      type: object
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+      - type: object
+        properties:
+          sid:
+            $ref: "#/components/schemas/Sid"
+            description: The SID of the sam account.
+          dnsHostName:
+            type: string
+            description: The dns host name of the computer.
+          networkAddresses:
+            type: array
+            description: The network addresses of the computer.
+            items:
+              type: string
+          operatingSystem:
+            type: string
+            description: The operating system of the computer.
+          operatingSystemVersion:
+            type: string
+            description: The version operating system.
+          servicePrincipalNames:
+            type: array
+            description: The service principal names of the computer.
+            items:
+              type: string
+          description:
+            type: string
+            description: The description of the computer.
+          memberships:
+            type: array
+            items:
+              type: string
+          primaryGroupId:
+            type: integer
+            format: int32
+            description: The primary group ID of the computer.
+          samAccountName:
+            type: string
+            description: The unique name of the sam account.
+          criticalSystemObject:
+            type: boolean
+            default: false
+            description: Determines whether this sam account is a critical system
+              object or not.
       description: The domain computer.
-      properties:
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        sid:
-          $ref: "#/components/schemas/Sid"
-          description: The SID of the sam account.
-        dnsHostName:
-          type: string
-          description: The dns host name of the computer.
-        networkAddresses:
-          type: array
-          description: The network addresses of the computer.
-          items:
-            type: string
-        operatingSystem:
-          type: string
-          description: The operating system of the computer.
-        operatingSystemVersion:
-          type: string
-          description: The version operating system.
-        servicePrincipalNames:
-          type: array
-          description: The service principal names of the computer.
-          items:
-            type: string
-        description:
-          type: string
-          description: The description of the computer.
-        memberships:
-          type: array
-          items:
-            type: string
-        distinguishedName:
-          type: string
-          description: The distinguished name.
-        primaryGroupId:
-          type: integer
-          format: int32
-          description: The primary group ID of the computer.
-        samAccountName:
-          type: string
-          description: The unique name of the sam account.
-        criticalSystemObject:
-          type: boolean
-          default: false
-          description: Determines whether this sam account is a critical system object
-            or not.
       required:
       - samAccountName
     DomainUserPage:
@@ -3416,55 +3461,46 @@ components:
       - group
       - computer
     DomainGroupMember:
-      type: object
-      description: The domain group.
-      properties:
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        sid:
-          $ref: "#/components/schemas/Sid"
-          description: The SID of the sam account.
-        memberships:
-          type: array
-          items:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+      - type: object
+        properties:
+          sid:
+            $ref: "#/components/schemas/Sid"
+            description: The SID of the sam account.
+          memberships:
+            type: array
+            items:
+              type: string
+          member:
+            type: boolean
+            default: false
+            description: Determines whether this sam account is a member of the requested
+              group or not.
+          primaryGroupId:
+            type: integer
+            format: int32
+            description: The primary group ID of the member.
+          primaryMember:
+            type: boolean
+            default: false
+            description: Determines whether the requested group is the primary group
+              if this sam account or not.
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
+          displayName:
             type: string
-        distinguishedName:
-          type: string
-          description: The distinguished name.
-        member:
-          type: boolean
-          default: false
-          description: Determines whether this sam account is a member of the requested
-            group or not.
-        primaryGroupId:
-          type: integer
-          format: int32
-          description: The primary group ID of the member.
-        primaryMember:
-          type: boolean
-          default: false
-          description: Determines whether the requested group is the primary group
-            if this sam account or not.
-        memberType:
-          $ref: "#/components/schemas/DomainGroupMemberType"
-          description: The type of the member.
-        displayName:
-          type: string
-          description: The display name of the member.
-        samAccountName:
-          type: string
-          description: The unique name of the sam account.
-        criticalSystemObject:
-          type: boolean
-          default: false
-          description: Determines whether this sam account is a critical system object
-            or not.
+            description: The display name of the member.
+          samAccountName:
+            type: string
+            description: The unique name of the sam account.
+          criticalSystemObject:
+            type: boolean
+            default: false
+            description: Determines whether this sam account is a critical system
+              object or not.
+      description: The domain group.
       required:
       - displayName
       - memberType
@@ -3531,9 +3567,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        dhcpEnabled:
-          type: boolean
         mailEnabled:
+          type: boolean
+        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3817,7 +3853,19 @@ components:
       - totalElements
       - totalPages
     AdEntry:
+      type: object
       description: Active directory base entry.
+      discriminator:
+        propertyName: _type
+        mapping:
+          dns-entry: "#/components/schemas/DnsEntry"
+          dns-zone: "#/components/schemas/DnsZone"
+          organizational-unit: "#/components/schemas/OrganizationalUnit"
+          sam-account: "#/components/schemas/SamAccount"
+          computer: "#/components/schemas/DomainComputer"
+          group: "#/components/schemas/DomainGroup"
+          group-member: "#/components/schemas/DomainGroupMember"
+          user: "#/components/schemas/DomainUser"
       properties:
         modified:
           type: string
@@ -3830,6 +3878,191 @@ components:
           type: string
           format: date-time
           description: The creation date.
+        _type:
+          type: string
+      required:
+      - _type
+    AdEntryPage:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          description: The page or slice number starting with 0.
+        size:
+          type: integer
+          format: int32
+          description: The size of the page or slice (not the size of the content).
+        nextAvailable:
+          type: boolean
+          description: Indicates whether a next page or slice is available.
+        totalElements:
+          type: integer
+          format: int64
+          description: The size of available elements.
+        totalPages:
+          type: integer
+          format: int32
+          description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
+        contentPresent:
+          type: boolean
+          description: Indicates whether the content is present.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        content:
+          type: array
+          description: The content of the page.
+          items:
+            oneOf:
+            - $ref: "#/components/schemas/DnsEntry"
+            - $ref: "#/components/schemas/DnsZone"
+            - $ref: "#/components/schemas/DomainComputer"
+            - $ref: "#/components/schemas/DomainGroup"
+            - $ref: "#/components/schemas/DomainGroupMember"
+            - $ref: "#/components/schemas/DomainUser"
+            - $ref: "#/components/schemas/OrganizationalUnit"
+            - $ref: "#/components/schemas/SamAccount"
+            - $ref: "#/components/schemas/ImmutableDomainUser"
+        sort:
+          $ref: "#/components/schemas/SortOrder"
+          description: The sort order.
+      required:
+      - contentPresent
+      - first
+      - last
+      - nextAvailable
+      - number
+      - numberOfElements
+      - previousAvailable
+      - size
+      - totalElements
+      - totalPages
+    ImmutableDomainUser:
+      allOf:
+      - $ref: "#/components/schemas/SamAccount"
+      - type: object
+        properties:
+          accountControl:
+            $ref: "#/components/schemas/DomainUserAccountControl"
+            description: User's account control.
+          accountExpires:
+            type: string
+            format: date-time
+          company:
+            type: string
+          department:
+            type: string
+          description:
+            type: string
+          displayName:
+            type: string
+          email:
+            type: string
+          firstName:
+            type: string
+          gecos:
+            type: string
+          gidNumber:
+            type: integer
+            format: int32
+          homeDirectory:
+            type: string
+          homeDrive:
+            type: string
+          initials:
+            type: string
+          lastLogon:
+            type: string
+            format: date-time
+          lastName:
+            type: string
+          loginShell:
+            type: string
+          logonCount:
+            type: integer
+            format: int32
+          mobile:
+            type: string
+          nisDomain:
+            type: string
+          passwordLastSet:
+            type: string
+            format: date-time
+          physicalDeliveryOfficeName:
+            type: string
+          preferredLanguage:
+            type: string
+            default: de-DE
+            description: User's preferred language. ISO 639-1 language codes. The
+              combinations like de-DE and en-US with ISO-639 and ISO-3166 also work.
+          primaryGroupId:
+            type: integer
+            format: int32
+            description: The primary group ID of the user.
+          profilePath:
+            type: string
+          scriptPath:
+            type: string
+          telephoneNumber:
+            type: string
+          title:
+            type: string
+          uid:
+            type: string
+          uidNumber:
+            type: integer
+            format: int32
+          unixHomeDirectory:
+            type: string
+          userPrincipalName:
+            type: string
+      required:
+      - accountControl
+      - samAccountName
+    SamAccount:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+      - type: object
+        properties:
+          memberships:
+            type: array
+            items:
+              type: string
+          primaryGroupId:
+            type: integer
+            format: int32
+          sid:
+            $ref: "#/components/schemas/Sid"
+            description: The SID of the sam account.
+          samAccountName:
+            type: string
+            description: The unique name of the sam account.
+          criticalSystemObject:
+            type: boolean
+            default: false
+            description: Determines whether this sam account is a critical system
+              object or not.
+      description: "The base of a 'SamAccount' like 'User', 'Group' and 'Computer'."
+      discriminator:
+        propertyName: _type
+        mapping:
+          computer: "#/components/schemas/DomainComputer"
+          group: "#/components/schemas/DomainGroup"
+          group-member: "#/components/schemas/DomainGroupMember"
+          user: "#/components/schemas/DomainUser"
+      required:
+      - samAccountName
   securitySchemes:
     basic-auth:
       type: http
