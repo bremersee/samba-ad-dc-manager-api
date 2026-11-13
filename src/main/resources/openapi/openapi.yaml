@@ -2725,9 +2725,9 @@ components:
             format: date-time
           title:
             type: string
-          initials:
-            type: string
           displayName:
+            type: string
+          initials:
             type: string
           description:
             type: string
@@ -2987,8 +2987,6 @@ components:
       - $ref: "#/components/schemas/AdEntry"
       - type: object
         properties:
-          aging:
-            type: boolean
           shutdown:
             type: boolean
           reverseZone:
@@ -2999,10 +2997,6 @@ components:
             description: The zone type.
           paused:
             type: boolean
-          useWins:
-            type: boolean
-          fqdn:
-            type: string
           allowUpdate:
             type: string
           autoCreated:
@@ -3011,8 +3005,14 @@ components:
             type: boolean
           dataFile:
             type: string
+          useWins:
+            type: boolean
           useNbstat:
             type: boolean
+          aging:
+            type: boolean
+          fqdn:
+            type: string
           queuedForBackgroundLoad:
             type: boolean
           backgroundLoadInProgress:
@@ -3037,13 +3037,13 @@ components:
             type: integer
             format: int32
             description: The ttl seconds of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
           serial:
             type: integer
             format: int32
             description: The serial of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
           conflict:
             type: boolean
             default: false
@@ -3567,9 +3567,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        mailEnabled:
-          type: boolean
         dhcpEnabled:
+          type: boolean
+        mailEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3933,7 +3933,6 @@ components:
             - $ref: "#/components/schemas/DomainUser"
             - $ref: "#/components/schemas/OrganizationalUnit"
             - $ref: "#/components/schemas/SamAccount"
-            - $ref: "#/components/schemas/ImmutableDomainUser"
         sort:
           $ref: "#/components/schemas/SortOrder"
           description: The sort order.
@@ -3948,88 +3947,6 @@ components:
       - size
       - totalElements
       - totalPages
-    ImmutableDomainUser:
-      allOf:
-      - $ref: "#/components/schemas/SamAccount"
-      - type: object
-        properties:
-          accountControl:
-            $ref: "#/components/schemas/DomainUserAccountControl"
-            description: User's account control.
-          accountExpires:
-            type: string
-            format: date-time
-          company:
-            type: string
-          department:
-            type: string
-          description:
-            type: string
-          displayName:
-            type: string
-          email:
-            type: string
-          firstName:
-            type: string
-          gecos:
-            type: string
-          gidNumber:
-            type: integer
-            format: int32
-          homeDirectory:
-            type: string
-          homeDrive:
-            type: string
-          initials:
-            type: string
-          lastLogon:
-            type: string
-            format: date-time
-          lastName:
-            type: string
-          loginShell:
-            type: string
-          logonCount:
-            type: integer
-            format: int32
-          mobile:
-            type: string
-          nisDomain:
-            type: string
-          passwordLastSet:
-            type: string
-            format: date-time
-          physicalDeliveryOfficeName:
-            type: string
-          preferredLanguage:
-            type: string
-            default: de-DE
-            description: User's preferred language. ISO 639-1 language codes. The
-              combinations like de-DE and en-US with ISO-639 and ISO-3166 also work.
-          primaryGroupId:
-            type: integer
-            format: int32
-            description: The primary group ID of the user.
-          profilePath:
-            type: string
-          scriptPath:
-            type: string
-          telephoneNumber:
-            type: string
-          title:
-            type: string
-          uid:
-            type: string
-          uidNumber:
-            type: integer
-            format: int32
-          unixHomeDirectory:
-            type: string
-          userPrincipalName:
-            type: string
-      required:
-      - accountControl
-      - samAccountName
     SamAccount:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
