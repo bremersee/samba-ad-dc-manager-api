@@ -1,428 +1,89 @@
 openapi: 3.1.0
 info:
-  title: Group Manager API
-  description: RESTful service for group manager application.
+  title: Samba AD DC Manager API
+  description: RESTful service for Samba AD DC Manager.
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 3.0.0-SNAPSHOT
-  summary: A group manager.
+  summary: The Samba AD DC Manager API
 servers:
 - url: http://localhost:8080
   description: Generated server url
 tags:
-- name: group-manager
-  description: RESTful group service API.
-- name: user-manager
-  description: RESTful user service API.
+- name: ad-entry-manager
+  description: RESTful api for ad entries.
+- name: ad-domain-manager
+  description: RESTful api for domain.
+- name: ad-organizational-unit-manager
+  description: RESTful api for organizational units.
+- name: ad-dns-manager
+  description: RESTful api for dns.
+- name: ad-group-manager
+  description: RESTful api for groups.
+- name: ad-user-avatar-manager
+  description: RESTful api for user avatars.
+- name: ad-computer-manager
+  description: RESTful api for computers.
+- name: ad-user-manager
+  description: RESTful api for users.
+- name: ad-managers-features-api
+  description: RESTful api to obtain features of manager application.
 paths:
-  /api/groups/{groupId}/members/{userId}:
-    put:
-      tags:
-      - group-manager
-      description: Add member.
-      operationId: addMember
-      parameters:
-      - name: groupId
-        in: path
-        description: The ID of the group.
-        required: true
-        schema:
-          type: string
-      - name: userId
-        in: path
-        description: The ID of the user (member).
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "404":
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-      security:
-      - bearer-jwt: []
-    delete:
-      tags:
-      - group-manager
-      description: Remove member.
-      operationId: removeMember
-      parameters:
-      - name: groupId
-        in: path
-        description: The ID of the group.
-        required: true
-        schema:
-          type: string
-      - name: userId
-        in: path
-        description: The ID of the user (member).
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "404":
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-      security:
-      - bearer-jwt: []
-  /api/groups/{groupId}:
-    get:
-      tags:
-      - group-manager
-      description: Get group.
-      operationId: getGroup
-      parameters:
-      - name: groupId
-        in: path
-        description: The ID of the group.
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Group"
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "404":
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-      security:
-      - bearer-jwt: []
-    put:
-      tags:
-      - group-manager
-      description: Update group.
-      operationId: updateGroup
-      parameters:
-      - name: groupId
-        in: path
-        description: The ID of the group.
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GroupUpdate"
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Group"
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "404":
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-      security:
-      - bearer-jwt: []
-    delete:
-      tags:
-      - group-manager
-      description: Delete group.
-      operationId: deleteGroup
-      parameters:
-      - name: groupId
-        in: path
-        description: The ID of the group.
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "404":
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-      security:
-      - bearer-jwt: []
-  /api/groups:
-    get:
-      tags:
-      - group-manager
-      description: Get groups.
-      operationId: getGroups
-      parameters:
-      - name: search
-        in: query
-        description: A String contained in name or description.
-        required: false
-        schema:
-          type: string
-      - name: first
-        in: query
-        description: Pagination offset.
-        required: false
-        schema:
-          type: integer
-          format: int32
-      - name: max
-        in: query
-        description: Maximum results size (defaults to 100).
-        required: false
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Group"
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-      security:
-      - bearer-jwt: []
-    post:
-      tags:
-      - group-manager
-      description: Create group.
-      operationId: createGroup
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GroupCreate"
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Group"
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RestApiException"
-      security:
-      - bearer-jwt: []
   /api/users:
     get:
       tags:
-      - user-manager
-      description: Find users.
-      operationId: findUsers
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Get user page.
+      operationId: getUsers
       parameters:
-      - name: search
+      - name: q
         in: query
-        description: "A String contained in username, first or last name, or email.\
-          \ Default search behavior is prefix-based (e.g., foo or foo*). Use *foo*\
-          \ for infix search and \"foo\" for exact search."
-        required: true
+        description: A search term.
+        required: false
         schema:
           type: string
-      - name: first
+      - name: ou
         in: query
-        description: Pagination offset.
+        description: The search base (organizational unit) like 'CN=Users'.
         required: false
         schema:
-          type: integer
-          format: int32
-      - name: max
+          type: string
+      - name: scope
         in: query
-        description: Maximum results size (defaults to 100).
+        description: The search scope (one-level|subtree).
         required: false
         schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        schema:
           type: integer
-          format: int32
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        schema:
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        schema:
+          type: array
+          items:
+            type: string
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/DomainUserPage"
         "400":
           description: Bad request
           content:
@@ -449,42 +110,132 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-  /api/groups/{groupId}/members:
-    get:
+      - basic-auth: []
+    put:
       tags:
-      - group-manager
-      description: Get members.
-      operationId: getMembers
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Add user.
+      operationId: addUser
       parameters:
-      - name: groupId
-        in: path
-        description: The ID of the group.
-        required: true
+      - name: pwd
+        in: query
+        description: The password of the user.
+        required: false
         schema:
           type: string
-      - name: first
+      - name: ou
         in: query
-        description: Pagination offset.
+        description: Add user to organizational unit (like 'CN=Users').
         required: false
         schema:
-          type: integer
-          format: int32
-      - name: max
+          type: string
+      - name: username-as-cn
         in: query
-        description: Maximum results size (defaults to 100).
+        description: Specifies whether the username should be used as common name
+          or not.
         required: false
         schema:
-          type: integer
-          format: int32
+          type: boolean
+      - name: invitation-email
+        in: query
+        description: Specifies whether an invitation email should be sent or not.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json: {}
+        required: true
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/DomainUser"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "409":
+          description: Already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/users/{name}:
+    get:
+      tags:
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Get user.
+      operationId: getUser
+      parameters:
+      - name: name
+        in: path
+        description: The name of the user.
+        required: true
+        schema:
+          type: string
+      - name: id-type
+        in: query
+        description: The type of the given name (name|principal|uid|uid-number).
+        required: false
+        schema:
+          $ref: "#/components/schemas/DomainUserIdentifier"
+          default: name
+          example: name
+      - name: ou
+        in: query
+        description: The search base (organizational unit) like 'CN=Users'.
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: The search scope (one-level|subtree).
+        required: false
+        schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainUser"
         "400":
           description: Bad request
           content:
@@ -517,6 +268,2387 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Update user.
+      operationId: updateUser
+      parameters:
+      - name: name
+        in: path
+        description: The name of the user.
+        required: true
+        schema:
+          type: string
+      - name: move-to
+        in: query
+        description: "The new organizational unit of the user like 'CN=Users,CN=Marketing'."
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json: {}
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainUser"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "409":
+          description: Already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    delete:
+      tags:
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Delete user.
+      operationId: deleteUser
+      parameters:
+      - name: name
+        in: path
+        description: The name of the user.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/users/{name}/pwd:
+    put:
+      tags:
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Update user password.
+      operationId: updateUserPassword
+      parameters:
+      - name: name
+        in: path
+        description: The name of the user.
+        required: true
+        schema:
+          type: string
+      - name: invitation-email
+        in: query
+        description: Specifies whether an invitation email should be sent or not.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+              description: "The clear password of the user. If it is empty or null,\
+                \ a random password will be generated."
+              example: voF7J!0$kPsfk$fz
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/users/{name}/avatar:
+    get:
+      tags:
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Get user avatar.
+      operationId: getUserAvatar
+      parameters:
+      - name: name
+        in: path
+        description: The name of the user.
+        required: true
+        schema:
+          type: string
+      - name: d
+        in: query
+        description: Specifies the default avatar.
+        required: false
+        schema:
+          $ref: "#/components/schemas/AvatarDefault"
+          default: "404"
+          example: mp
+      - name: s
+        in: query
+        description: Specifies the size of the avatar.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 80
+          example: 120
+      responses:
+        "200":
+          description: OK
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: byte
+        "400":
+          description: Bad request
+          content:
+            image/jpeg:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            image/jpeg:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            image/jpeg:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            image/jpeg:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            image/jpeg:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+    put:
+      tags:
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Update user avatar.
+      operationId: updateUserAvatar
+      parameters:
+      - name: name
+        in: path
+        description: The name of the user.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+              description: The avatar as jpeg.
+        required: true
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    delete:
+      tags:
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Remove user avatar.
+      operationId: removeUserAvatar
+      parameters:
+      - name: name
+        in: path
+        description: The name of the user.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/organizational-units:
+    get:
+      tags:
+      - ad-organizational-unit-manager
+      description: Get organizational units.
+      operationId: getOrganizationalUnits
+      parameters:
+      - name: q
+        in: query
+        description: A search term.
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        schema:
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        schema:
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationalUnitPage"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-organizational-unit-manager
+      description: Add organizational unit.
+      operationId: addOrganizationalUnit
+      parameters:
+      - name: parent-ou
+        in: query
+        description: The distinguished name of the parent organizational unit.
+        required: false
+        schema:
+          type: string
+          example: CN=Contacts
+      requestBody:
+        content:
+          application/json: {}
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationalUnit"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/organizational-units/{dn}:
+    get:
+      tags:
+      - ad-organizational-unit-manager
+      description: Get organizational unit.
+      operationId: getOrganizationalUnit
+      parameters:
+      - name: dn
+        in: path
+        description: The distinguished name of the organizational unit.
+        required: true
+        schema:
+          type: string
+          example: CN=Users
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationalUnit"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-organizational-unit-manager
+      description: Update organizational unit.
+      operationId: updateOrganizationalUnit
+      parameters:
+      - name: dn
+        in: path
+        description: The distinguished name of the organizational unit.
+        required: true
+        schema:
+          type: string
+          example: CN=Contacts
+      - name: parent-ou
+        in: query
+        description: The distinguished name of the new parent organizational unit.
+        required: false
+        schema:
+          type: string
+          example: CN=Telephone Book
+      requestBody:
+        content:
+          application/json: {}
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationalUnit"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    delete:
+      tags:
+      - ad-organizational-unit-manager
+      description: Delete organizational unit.
+      operationId: deleteOrganizationalUnit
+      parameters:
+      - name: dn
+        in: path
+        description: The distinguished name of the organizational unit.
+        required: true
+        schema:
+          type: string
+          example: CN=Contacts
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/groups:
+    get:
+      tags:
+      - ad-group-manager
+      description: Get group page.
+      operationId: getGroups
+      parameters:
+      - name: q
+        in: query
+        description: A search term.
+        required: false
+        schema:
+          type: string
+      - name: ou
+        in: query
+        description: The search base (organizational unit) like 'CN=Users'.
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: The search scope (one-level|subtree).
+        required: false
+        schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        schema:
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        schema:
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainGroupPage"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-group-manager
+      description: Add group.
+      operationId: addGroup
+      parameters:
+      - name: ou
+        in: query
+        description: Add group to organizational unit (like 'CN=Groups').
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json: {}
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainGroup"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "409":
+          description: Already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/groups/{name}:
+    get:
+      tags:
+      - ad-group-manager
+      description: Get group.
+      operationId: getGroup
+      parameters:
+      - name: name
+        in: path
+        description: The name of the group or the group ID.
+        required: true
+        schema:
+          type: string
+      - name: id-type
+        in: query
+        description: The type of the given name (name|group-id|unix-group-id).
+        required: false
+        schema:
+          $ref: "#/components/schemas/DomainGroupIdentifier"
+          default: name
+          example: name
+      - name: ou
+        in: query
+        description: The search base (organizational unit) like 'CN=Groups'.
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: The search scope (one-level|subtree).
+        required: false
+        schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainGroup"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-group-manager
+      description: Update group.
+      operationId: updateGroup
+      parameters:
+      - name: name
+        in: path
+        description: The name of the group.
+        required: true
+        schema:
+          type: string
+      - name: move-to
+        in: query
+        description: "The new organizational unit like 'CN=Contact Groups,CN=Telephone\
+          \ Book'."
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json: {}
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainGroup"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "409":
+          description: Already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    delete:
+      tags:
+      - ad-group-manager
+      description: Delete group.
+      operationId: deleteGroup
+      parameters:
+      - name: name
+        in: path
+        description: The name of the group.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/groups/{name}/members:
+    get:
+      tags:
+      - ad-group-manager
+      description: Get group members.
+      operationId: getMemberSelection
+      parameters:
+      - name: name
+        in: path
+        description: The name of the group.
+        required: true
+        schema:
+          type: string
+      - name: ou
+        in: query
+        description: The search base (organizational unit) like 'CN=Users'.
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: The search scope (one-level|subtree).
+        required: false
+        schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      - name: member-type
+        in: query
+        description: The type of a group member.
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+      - name: with-primary-members
+        in: query
+        description: Specifies whether primary members should be returned or not.
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: q
+        in: query
+        description: A search term.
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        schema:
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        schema:
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainGroupMemberPage"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-group-manager
+      description: Modify group members.
+      operationId: modifyMembers
+      parameters:
+      - name: name
+        in: path
+        description: The name of the group.
+        required: true
+        schema:
+          type: string
+      - name: ou
+        in: query
+        description: The search base (organizational unit) like 'CN=Users'.
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: The search scope (one-level|subtree).
+        required: false
+        schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DomainGroupMemberModifications"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainGroup"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/dns/zones:
+    get:
+      tags:
+      - ad-dns-manager
+      description: Get DNS zones.
+      operationId: getDnsZoneNames
+      parameters:
+      - name: zone-type
+        in: query
+        description: Specifies the zone type.
+        required: false
+        schema:
+          $ref: "#/components/schemas/DnsZoneType"
+          default: primary
+          example: reverse
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-dns-manager
+      description: Add DNS zone.
+      operationId: addDnsZone
+      parameters:
+      - name: zone-name
+        in: query
+        description: The zone name.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DnsZone"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/dns/zones/{zone}/entries:
+    get:
+      tags:
+      - ad-dns-manager
+      description: Get dns entries of a zone.
+      operationId: getDnsEntries
+      parameters:
+      - name: zone
+        in: path
+        description: The name of the zone.
+        required: true
+        schema:
+          type: string
+      - name: q
+        in: query
+        description: A search term.
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        schema:
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        schema:
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DnsEntryPage"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-dns-manager
+      description: Add DNS entry to a zone.
+      operationId: addDnsEntry
+      parameters:
+      - name: zone
+        in: path
+        description: The name of the zone.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json: {}
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DnsEntry"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/dns/zones/{zone}/entries/{name}/{type}/{value}:
+    get:
+      tags:
+      - ad-dns-manager
+      description: Get DNS entry of a zone.
+      operationId: getDnsEntry
+      parameters:
+      - name: zone
+        in: path
+        description: The name of the zone.
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: The name of the entry.
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: path
+        description: The type of the entry.
+        required: true
+        schema:
+          $ref: "#/components/schemas/DnsEntryType"
+      - name: value
+        in: path
+        description: The value of the entry.
+        required: true
+        schema:
+          type: string
+      - name: reverse
+        in: query
+        description: Get reverse entry.
+        required: false
+        schema:
+          type: boolean
+          default: false
+          example: false
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DnsEntry"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-dns-manager
+      description: Update DNS entry of a zone.
+      operationId: updateDnsEntry
+      parameters:
+      - name: zone
+        in: path
+        description: The name of the zone.
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: The name of the entry.
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: path
+        description: The type of the entry.
+        required: true
+        schema:
+          $ref: "#/components/schemas/DnsEntryType"
+      - name: value
+        in: path
+        description: The value of the entry.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DnsEntry"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    delete:
+      tags:
+      - ad-dns-manager
+      description: Delete DNS entry of a zone.
+      operationId: deleteDnsEntry
+      parameters:
+      - name: zone
+        in: path
+        description: The name of the zone.
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: The name of the entry.
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: path
+        description: The type of the entry.
+        required: true
+        schema:
+          $ref: "#/components/schemas/DnsEntryType"
+      - name: value
+        in: path
+        description: The value of the entry.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/computers/{name}:
+    get:
+      tags:
+      - ad-computer-manager
+      description: Get computer.
+      operationId: getComputer
+      parameters:
+      - name: name
+        in: path
+        description: The name of the computer.
+        required: true
+        schema:
+          type: string
+      - name: ou
+        in: query
+        description: The search base (organizational unit) like 'CN=Computers'.
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: The search scope (one-level|subtree).
+        required: false
+        schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainComputer"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    put:
+      tags:
+      - ad-computer-manager
+      description: Update computer.
+      operationId: updateComputer
+      parameters:
+      - name: name
+        in: path
+        description: The name of the computer.
+        required: true
+        schema:
+          type: string
+      - name: move-to
+        in: query
+        description: The new organizational unit of the computer like 'CN=Servers'.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json: {}
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainComputer"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "409":
+          description: Already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    delete:
+      tags:
+      - ad-computer-manager
+      description: Delete computer.
+      operationId: deleteComputer
+      parameters:
+      - name: name
+        in: path
+        description: The name of the computer.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/users/{name}/avatar/existence:
+    get:
+      tags:
+      - ad-user-manager
+      - ad-user-avatar-manager
+      description: Checks whether the avatar of the user is present in the active
+        directory.
+      operationId: existsAvatarInActiveDirectory
+      parameters:
+      - name: name
+        in: path
+        description: The name of the user.
+        required: true
+        schema:
+          type: string
+      - name: ou
+        in: query
+        description: The search base (organizational unit) like 'CN=Users'.
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: The search scope (one-level|subtree).
+        required: false
+        schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/groups/{name}/memberships:
+    get:
+      tags:
+      - ad-group-manager
+      description: Get memberships of group.
+      operationId: getMemberships
+      parameters:
+      - name: name
+        in: path
+        description: The name of the group.
+        required: true
+        schema:
+          type: string
+      - name: resolved
+        in: query
+        description: Specifies whether the memberships should be resoled or not.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: ou
+        in: query
+        description: The search base (organizational unit) like 'CN=Groups'.
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: The search scope (one-level|subtree).
+        required: false
+        schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DomainGroup"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/features:
+    get:
+      tags:
+      - ad-managers-features-api
+      description: Get features.
+      operationId: getDetectedFeatures
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Features"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/domain/password-information:
+    get:
+      tags:
+      - ad-domain-manager
+      description: Get password information.
+      operationId: getPasswordInformation
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PasswordInformation"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/dns/zones/{zone}:
+    get:
+      tags:
+      - ad-dns-manager
+      description: Get DNS zone.
+      operationId: getDnsZone
+      parameters:
+      - name: zone
+        in: path
+        description: The name of the zone.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DnsZone"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+    delete:
+      tags:
+      - ad-dns-manager
+      description: Delete DNS zone.
+      operationId: deleteDnsZone
+      parameters:
+      - name: zone
+        in: path
+        description: The name of the zone.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/dns/dhcp/leases:
+    get:
+      tags:
+      - ad-dns-manager
+      description: Get dhcp leases.
+      operationId: getDhcpLeases
+      parameters:
+      - name: q
+        in: query
+        description: A search term.
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        schema:
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        schema:
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DhcpLeasePage"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/computers:
+    get:
+      tags:
+      - ad-computer-manager
+      description: Get computer page.
+      operationId: getComputers
+      parameters:
+      - name: q
+        in: query
+        description: A search term.
+        required: false
+        schema:
+          type: string
+      - name: ou
+        in: query
+        description: The search base (organizational unit) like 'CN=Computers'.
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: The search scope (one-level|subtree).
+        required: false
+        schema:
+          $ref: "#/components/schemas/TreeSearchScope"
+          example: subtree
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        schema:
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        schema:
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainComputerPage"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/active-directory:
+    get:
+      tags:
+      - ad-entry-manager
+      description: Get root (base dn) as organizational unit.
+      operationId: getRoot
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationalUnit"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
+  /api/active-directory/{dn}:
+    get:
+      tags:
+      - ad-entry-manager
+      description: Get children of an organizational unit.
+      operationId: getChildren
+      parameters:
+      - name: dn
+        in: path
+        description: The distinguished name of the organizational unit.
+        required: true
+        schema:
+          type: string
+          example: CN=Users
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        schema:
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        schema:
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdEntryPage"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+      - bearer-jwt: []
+      - basic-auth: []
 components:
   schemas:
     Handler:
@@ -599,56 +2731,1286 @@ components:
           type: integer
           format: int32
           description: The line number.
-    GroupUpdate:
+    DomainUser:
       type: object
+      description: The domain user.
       properties:
-        description:
+        title:
           type: string
-        name:
+        homeDirectory:
           type: string
-      required:
-      - name
-    Group:
-      type: object
-      properties:
-        description:
+        email:
           type: string
-        id:
+        modified:
           type: string
-        name:
+          format: date-time
+          description: The last modification date.
+        uid:
           type: string
-      required:
-      - id
-      - name
-    GroupCreate:
-      type: object
-      properties:
-        description:
+        userPrincipalName:
           type: string
-        name:
+        unixHomeDirectory:
           type: string
-      required:
-      - name
-    User:
-      type: object
-      properties:
+        passwordLastSet:
+          type: string
+          format: date-time
+        company:
+          type: string
+        department:
+          type: string
+        gecos:
+          type: string
+        loginShell:
+          type: string
+        nisDomain:
+          type: string
+        physicalDeliveryOfficeName:
+          type: string
+        profilePath:
+          type: string
+        scriptPath:
+          type: string
         firstName:
           type: string
         lastName:
           type: string
-        id:
+        gidNumber:
+          type: integer
+          format: int32
+        created:
           type: string
-        username:
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
+        uidNumber:
+          type: integer
+          format: int32
+        accountExpires:
+          type: string
+          format: date-time
+        homeDrive:
+          type: string
+        mobile:
+          type: string
+        telephoneNumber:
+          type: string
+        logonCount:
+          type: integer
+          format: int32
+        lastLogon:
+          type: string
+          format: date-time
+        initials:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        memberships:
+          type: array
+          items:
+            type: string
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        primaryGroupId:
+          type: integer
+          format: int32
+          description: The primary group ID of the user.
+        preferredLanguage:
+          type: string
+          default: de-DE
+          description: User's preferred language. ISO 639-1 language codes. The combinations
+            like de-DE and en-US with ISO-639 and ISO-3166 also work.
+        accountControl:
+          $ref: "#/components/schemas/DomainUserAccountControl"
+          description: User's account control.
+        samAccountName:
+          type: string
+          description: The unique name of the sam account.
+        criticalSystemObject:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a critical system object
+            or not.
+      required:
+      - accountControl
+      - samAccountName
+    DomainUserAccountControl:
+      type: object
+      description: Domain user's account control.
+      properties:
+        normalAccount:
+          type: boolean
+          default: true
+          description: Specifies whether the account of the domain user is a normal
+            one or not.
+        passwordExpirationEnabled:
+          type: boolean
+          default: false
+          description: Specifies whether the password expiration is enabled or not.
+        enabled:
+          type: boolean
+          default: true
+          description: Specifies whether the domain user is enabled or not.
+    Sid:
+      type: object
+      description: The SID of the entity.
+      properties:
+        value:
+          type: string
+          description: The SID of the entity.
+        systemEntity:
+          type: boolean
+          default: false
+          description: Determines whether this SID belongs to a system entity or not.
+          readOnly: true
+      required:
+      - value
+    OrganizationalUnit:
+      type: object
+      description: The organizational unit in an active directory.
+      properties:
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        description:
+          type: string
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        systemOu:
+          type: boolean
+          default: false
+          description: Determines whether this organizational unit is a system one
+            or not.
+        name:
+          type: string
+          description: The name of this organizational unit.
+      required:
+      - name
+    DomainGroup:
+      type: object
+      description: The domain group.
+      properties:
+        members:
+          type: array
+          description: The members of the domain group.
+          items:
+            type: string
+        email:
+          type: string
+          description: The email address of the domain group.
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        nisDomain:
+          type: string
+          description: Group's Unix/RFC2307 NIS domain.
+        gidNumber:
+          type: integer
+          format: int32
+          description: Group's Unix/RFC2307 GID number.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        description:
+          type: string
+          description: The description of the domain group.
+        memberships:
+          type: array
+          items:
+            type: string
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        groupType:
+          $ref: "#/components/schemas/DomainGroupType"
+          description: The type of the domain group.
+        groupId:
+          type: integer
+          format: int32
+          description: The group id of this domain group.
+          readOnly: true
+        samAccountName:
+          type: string
+          description: The unique name of the sam account.
+        criticalSystemObject:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a critical system object
+            or not.
+      required:
+      - samAccountName
+    DomainGroupType:
+      type: object
+      description: The domain group type.
+      properties:
+        purpose:
+          type: string
+          description: The purpose of the group.
+          enum:
+          - Unknown
+          - Security
+          - Distribution
+          readOnly: true
+        value:
+          type: integer
+          format: int32
+          default: -2147483646
+          description: The integer value of the group type.
+        scope:
+          type: string
+          description: The scope of the group.
+          enum:
+          - Unknown
+          - Universal
+          - Global
+          - Domain
+          readOnly: true
+    TreeSearchScope:
+      type: string
+      enum:
+      - one-level
+      - subtree
+    DomainGroupMemberModifications:
+      type: object
+      description: The domain group member modifications.
+      properties:
+        membersToAdd:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        membersToRemove:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    DnsZone:
+      type: object
+      description: DNS zone.
+      properties:
+        shutdown:
+          type: boolean
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        reverseZone:
+          type: boolean
+          description: Specifies whether this zone is a reverse zone or not.
+        zoneType:
+          type: string
+          description: The zone type.
+        paused:
+          type: boolean
+        allowUpdate:
+          type: string
+        autoCreated:
+          type: boolean
+        useDatabase:
+          type: boolean
+        dataFile:
+          type: string
+        useWins:
+          type: boolean
+        useNbstat:
+          type: boolean
+        aging:
+          type: boolean
+        fqdn:
+          type: string
+        queuedForBackgroundLoad:
+          type: boolean
+        backgroundLoadInProgress:
+          type: boolean
+        readOnlyZone:
+          type: boolean
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        name:
+          type: string
+          description: The zone name.
+      required:
+      - name
+    DnsEntry:
+      type: object
+      description: DNS entry.
+      properties:
+        zoneName:
+          type: string
+          description: The zone name of this dns entry.
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        ttlSeconds:
+          type: integer
+          format: int32
+          description: The ttl seconds of this dns entry.
+        serial:
+          type: integer
+          format: int32
+          description: The serial of this dns entry.
+        flags:
+          type: string
+          description: The flags of this dns entry.
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        conflict:
+          type: boolean
+          default: false
+          description: Determines whether this DNS entry is marked as conflict or
+            not.
+          readOnly: true
+        name:
+          type: string
+          description: The name of this dns entry.
+        value:
+          type: string
+          description: The value of this dns entry.
+        type:
+          $ref: "#/components/schemas/DnsEntryType"
+          description: The type of this dns entry.
+        displayName:
+          type: string
+          description: The display name of this dns entry.
+          readOnly: true
+      required:
+      - name
+      - type
+      - value
+    DnsEntryType:
+      type: string
+      description: The type of a DNS record.
+      enum:
+      - ALL
+      - A
+      - NS
+      - MD
+      - MF
+      - CNAME
+      - SOA
+      - MB
+      - MG
+      - MR
+      - "NULL"
+      - WKS
+      - PTR
+      - HINFO
+      - MINFO
+      - MX
+      - TXT
+      - RP
+      - AFSDB
+      - X25
+      - ISDN
+      - RT
+      - NSAP
+      - NSAP_PTR
+      - SIG
+      - KEY
+      - PX
+      - GPOS
+      - AAAA
+      - LOC
+      - NXT
+      - EID
+      - NIMLOC
+      - SRV
+      - ATMA
+      - NAPTR
+      - KX
+      - CERT
+      - A6
+      - DNAME
+      - SINK
+      - OPT
+      - APL
+      - DS
+      - SSHFP
+      - IPSECKEY
+      - RRSIG
+      - NSEC
+      - DNSKEY
+      - DHCID
+      - NSEC3
+      - NSEC3PARAM
+      - TLSA
+      - HIP
+      - NINFO
+      - RKEY
+      - TALINK
+      - CDS
+      - CDNSKEY
+      - OPENPGPKEY
+      - CSYNC
+      - SPF
+      - UINFO
+      - UID
+      - GID
+      - UNSPEC
+      - NID
+      - L32
+      - L64
+      - LP
+      - EUI48
+      - EUI64
+      - TKEY
+      - TSIG
+      - IXFR
+      - AXFR
+      - MAILB
+      - MAILA
+      - ANY
+      - URI
+      - CAA
+      - TA
+      - DLV
+    DomainComputer:
+      type: object
+      description: The domain computer.
+      properties:
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
+        dnsHostName:
+          type: string
+          description: The dns host name of the computer.
+        networkAddresses:
+          type: array
+          description: The network addresses of the computer.
+          items:
+            type: string
+        operatingSystem:
+          type: string
+          description: The operating system of the computer.
+        operatingSystemVersion:
+          type: string
+          description: The version operating system.
+        servicePrincipalNames:
+          type: array
+          description: The service principal names of the computer.
+          items:
+            type: string
+        description:
+          type: string
+          description: The description of the computer.
+        memberships:
+          type: array
+          items:
+            type: string
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        primaryGroupId:
+          type: integer
+          format: int32
+          description: The primary group ID of the computer.
+        samAccountName:
+          type: string
+          description: The unique name of the sam account.
+        criticalSystemObject:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a critical system object
+            or not.
+      required:
+      - samAccountName
+    DomainUserPage:
+      type: object
+      description: A page of domain users.
+      properties:
+        number:
+          type: integer
+          format: int32
+          description: The page or slice number starting with 0.
+        size:
+          type: integer
+          format: int32
+          description: The size of the page or slice (not the size of the content).
+        nextAvailable:
+          type: boolean
+          description: Indicates whether a next page or slice is available.
+        totalElements:
+          type: integer
+          format: int64
+          description: The size of available elements.
+        totalPages:
+          type: integer
+          format: int32
+          description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
+        contentPresent:
+          type: boolean
+          description: Indicates whether the content is present.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        content:
+          type: array
+          description: The content of the page.
+          items:
+            $ref: "#/components/schemas/DomainUser"
+        sort:
+          $ref: "#/components/schemas/SortOrder"
+          description: The sort order.
+      required:
+      - contentPresent
+      - first
+      - last
+      - nextAvailable
+      - number
+      - numberOfElements
+      - previousAvailable
+      - size
+      - totalElements
+      - totalPages
+    SortOrder:
+      type: object
+      description: The sort order.
+      properties:
+        items:
+          type: array
+          description: The sort order items.
+          items:
+            $ref: "#/components/schemas/SortOrderItem"
+      xml:
+        name: sortOrder
+        namespace: http://bremersee.org/xmlschemas/comparator/v4
+    SortOrderItem:
+      type: object
+      description: A sort order defines how a field of an object is sorted.
+      properties:
+        field:
+          type: string
+          description: The field name or path.
+        direction:
+          type: string
+          default: ASC
+          description: The direction.
+          enum:
+          - asc
+          - desc
+        case-handling:
+          type: string
+          default: INSENSITIVE
+          description: The case-handling.
+          enum:
+          - insensitive
+          - sensitive
+        null-handling:
+          type: string
+          default: NATIVE
+          description: The null-handling.
+          enum:
+          - nulls-first
+          - nulls-last
+          - native
+      xml:
+        name: sortOrderItem
+        namespace: http://bremersee.org/xmlschemas/comparator/v4
+    DomainUserIdentifier:
+      type: string
+      enum:
+      - name
+      - principal
+      - uid
+      - uid-number
+    AvatarDefault:
+      type: string
+      description: Specifies the default avatar or 'not found'.
+      enum:
+      - "404"
+      - mp
+      - identicon
+      - monsterid
+      - wavatar
+      - retro
+      - robohash
+      - blank
+    OrganizationalUnitPage:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          description: The page or slice number starting with 0.
+        size:
+          type: integer
+          format: int32
+          description: The size of the page or slice (not the size of the content).
+        nextAvailable:
+          type: boolean
+          description: Indicates whether a next page or slice is available.
+        totalElements:
+          type: integer
+          format: int64
+          description: The size of available elements.
+        totalPages:
+          type: integer
+          format: int32
+          description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
+        contentPresent:
+          type: boolean
+          description: Indicates whether the content is present.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        content:
+          type: array
+          description: The content of the page.
+          items:
+            $ref: "#/components/schemas/OrganizationalUnit"
+        sort:
+          $ref: "#/components/schemas/SortOrder"
+          description: The sort order.
+      required:
+      - contentPresent
+      - first
+      - last
+      - nextAvailable
+      - number
+      - numberOfElements
+      - previousAvailable
+      - size
+      - totalElements
+      - totalPages
+    DomainGroupPage:
+      type: object
+      description: A page of domain groups.
+      properties:
+        number:
+          type: integer
+          format: int32
+          description: The page or slice number starting with 0.
+        size:
+          type: integer
+          format: int32
+          description: The size of the page or slice (not the size of the content).
+        nextAvailable:
+          type: boolean
+          description: Indicates whether a next page or slice is available.
+        totalElements:
+          type: integer
+          format: int64
+          description: The size of available elements.
+        totalPages:
+          type: integer
+          format: int32
+          description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
+        contentPresent:
+          type: boolean
+          description: Indicates whether the content is present.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        content:
+          type: array
+          description: The content of the page.
+          items:
+            $ref: "#/components/schemas/DomainGroup"
+        sort:
+          $ref: "#/components/schemas/SortOrder"
+          description: The sort order.
+      required:
+      - contentPresent
+      - first
+      - last
+      - nextAvailable
+      - number
+      - numberOfElements
+      - previousAvailable
+      - size
+      - totalElements
+      - totalPages
+    DomainGroupIdentifier:
+      type: string
+      enum:
+      - name
+      - group-id
+      - unix-group-id
+    DomainGroupMemberType:
+      type: string
+      description: The type of o group member.
+      enum:
+      - unknown
+      - user
+      - group
+      - computer
+    DomainGroupMember:
+      type: object
+      description: The domain group.
+      properties:
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
+        memberships:
+          type: array
+          items:
+            type: string
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        member:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a member of the requested
+            group or not.
+        primaryGroupId:
+          type: integer
+          format: int32
+          description: The primary group ID of the member.
+        primaryMember:
+          type: boolean
+          default: false
+          description: Determines whether the requested group is the primary group
+            if this sam account or not.
+        memberType:
+          $ref: "#/components/schemas/DomainGroupMemberType"
+          description: The type of the member.
+        displayName:
+          type: string
+          description: The display name of the member.
+        samAccountName:
+          type: string
+          description: The unique name of the sam account.
+        criticalSystemObject:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a critical system object
+            or not.
+      required:
+      - displayName
+      - memberType
+      - samAccountName
+    DomainGroupMemberPage:
+      type: object
+      description: A page of domain group members.
+      properties:
+        number:
+          type: integer
+          format: int32
+          description: The page or slice number starting with 0.
+        size:
+          type: integer
+          format: int32
+          description: The size of the page or slice (not the size of the content).
+        nextAvailable:
+          type: boolean
+          description: Indicates whether a next page or slice is available.
+        totalElements:
+          type: integer
+          format: int64
+          description: The size of available elements.
+        totalPages:
+          type: integer
+          format: int32
+          description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
+        contentPresent:
+          type: boolean
+          description: Indicates whether the content is present.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        content:
+          type: array
+          description: The content of the page.
+          items:
+            $ref: "#/components/schemas/DomainGroupMember"
+        sort:
+          $ref: "#/components/schemas/SortOrder"
+          description: The sort order.
+      required:
+      - contentPresent
+      - first
+      - last
+      - nextAvailable
+      - number
+      - numberOfElements
+      - previousAvailable
+      - size
+      - totalElements
+      - totalPages
+    Features:
+      type: object
+      description: Information about features.
+      properties:
+        mailEnabled:
+          type: boolean
+        dhcpEnabled:
+          type: boolean
+    PasswordComplexity:
+      type: string
+      description: Specifies the complexity of a password.
+      enum:
+      - "on"
+      - "off"
+      - default
+    PasswordInformation:
+      type: object
+      description: The password information of an active directory.
+      properties:
+        passwordRegex:
+          type: string
+          description: The password regex.
+          readOnly: true
+        minimumPasswordLength:
+          type: integer
+          format: int32
+          default: 7
+          description: The minimum password length. Default is 7.
+        maximumPasswordLength:
+          type: integer
+          format: int32
+          default: 75
+          description: The maximum password length. Default is 75.
+        minimumPasswordAgeInDays:
+          type: integer
+          format: int32
+          default: 1
+          description: The minimum password age in days. Default is 1.
+        passwordComplexity:
+          $ref: "#/components/schemas/PasswordComplexity"
+          default: "on"
+          description: The password complexity.
+        storePlaintextPasswords:
+          type: boolean
+          default: false
+          description: Store plaintext passwords where account have 'store passwords
+            with reversible encryption' set (on | off | default). Default is 'off'.
+        passwordHistoryLength:
+          type: integer
+          format: int32
+          default: 24
+          description: The password history length. Default is 24.
+        maximumPasswordAgeInDays:
+          type: integer
+          format: int32
+          default: 42
+          description: The maximum password age in days. Default is 42.
+        accountLockoutDurationInMinutes:
+          type: integer
+          format: int32
+          default: 30
+          description: The the length of time an account is locked out after exceeding
+            the limit on bad password attempts. Default is 30.
+        accountLockoutThreshold:
+          type: integer
+          format: int32
+          default: 0
+          description: The number of bad password attempts allowed before locking
+            out the account. Default is 0 (never lock out).
+        resetAccountLockoutAfter:
+          type: integer
+          format: int32
+          default: 30
+          description: "After this time is elapsed, the recorded number of attempts\
+            \ restarts from zero. Default is 30."
+    DnsZoneType:
+      type: string
+      description: The type of a DNS zone.
+      enum:
+      - primary
+      - secondary
+      - cache
+      - auto
+      - forward
+      - reverse
+      - ds
+      - non-ds
+    DnsEntryPage:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          description: The page or slice number starting with 0.
+        size:
+          type: integer
+          format: int32
+          description: The size of the page or slice (not the size of the content).
+        nextAvailable:
+          type: boolean
+          description: Indicates whether a next page or slice is available.
+        totalElements:
+          type: integer
+          format: int64
+          description: The size of available elements.
+        totalPages:
+          type: integer
+          format: int32
+          description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
+        contentPresent:
+          type: boolean
+          description: Indicates whether the content is present.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        content:
+          type: array
+          description: The content of the page.
+          items:
+            $ref: "#/components/schemas/DnsEntry"
+        sort:
+          $ref: "#/components/schemas/SortOrder"
+          description: The sort order.
+      required:
+      - contentPresent
+      - first
+      - last
+      - nextAvailable
+      - number
+      - numberOfElements
+      - previousAvailable
+      - size
+      - totalElements
+      - totalPages
+    DhcpLease:
+      type: object
+      description: The dhcp lease of the dhcp server.
+      properties:
+        manufacturer:
+          type: string
+          description: The manufacturer of the client.
+        hostname:
+          type: string
+          default: -NA-
+          description: The host name of the client.
+        end:
+          type: string
+          format: date-time
+          description: The end time of the lease.
+        ip:
+          type: string
+          description: The ip of the client.
+        mac:
+          type: string
+          description: The mac of the client.
+        begin:
+          type: string
+          format: date-time
+          description: The start time of the lease.
+      required:
+      - begin
+      - end
+      - ip
+      - mac
+    DhcpLeasePage:
+      type: object
+      description: A page of dhcp leases.
+      properties:
+        number:
+          type: integer
+          format: int32
+          description: The page or slice number starting with 0.
+        size:
+          type: integer
+          format: int32
+          description: The size of the page or slice (not the size of the content).
+        nextAvailable:
+          type: boolean
+          description: Indicates whether a next page or slice is available.
+        totalElements:
+          type: integer
+          format: int64
+          description: The size of available elements.
+        totalPages:
+          type: integer
+          format: int32
+          description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
+        contentPresent:
+          type: boolean
+          description: Indicates whether the content is present.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        content:
+          type: array
+          description: The content of the page.
+          items:
+            $ref: "#/components/schemas/DhcpLease"
+        sort:
+          $ref: "#/components/schemas/SortOrder"
+          description: The sort order.
+      required:
+      - contentPresent
+      - first
+      - last
+      - nextAvailable
+      - number
+      - numberOfElements
+      - previousAvailable
+      - size
+      - totalElements
+      - totalPages
+    DomainComputerPage:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          description: The page or slice number starting with 0.
+        size:
+          type: integer
+          format: int32
+          description: The size of the page or slice (not the size of the content).
+        nextAvailable:
+          type: boolean
+          description: Indicates whether a next page or slice is available.
+        totalElements:
+          type: integer
+          format: int64
+          description: The size of available elements.
+        totalPages:
+          type: integer
+          format: int32
+          description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
+        contentPresent:
+          type: boolean
+          description: Indicates whether the content is present.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        content:
+          type: array
+          description: The content of the page.
+          items:
+            $ref: "#/components/schemas/DomainComputer"
+        sort:
+          $ref: "#/components/schemas/SortOrder"
+          description: The sort order.
+      required:
+      - contentPresent
+      - first
+      - last
+      - nextAvailable
+      - number
+      - numberOfElements
+      - previousAvailable
+      - size
+      - totalElements
+      - totalPages
+    AdEntry:
+      type: object
+      description: Active directory base entry.
+      discriminator:
+        propertyName: _type
+        mapping:
+          dns-entry: "#/components/schemas/null"
+          dns-zone: "#/components/schemas/null"
+          computer: "#/components/schemas/null"
+          group: "#/components/schemas/null"
+          group-member: "#/components/schemas/DomainGroupMember"
+          user: "#/components/schemas/null"
+          organizational-unit: "#/components/schemas/null"
+      properties:
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        _type:
           type: string
       required:
-      - id
-      - username
+      - _type
+    AdEntryPage:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          description: The page or slice number starting with 0.
+        size:
+          type: integer
+          format: int32
+          description: The size of the page or slice (not the size of the content).
+        nextAvailable:
+          type: boolean
+          description: Indicates whether a next page or slice is available.
+        totalElements:
+          type: integer
+          format: int64
+          description: The size of available elements.
+        totalPages:
+          type: integer
+          format: int32
+          description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
+        contentPresent:
+          type: boolean
+          description: Indicates whether the content is present.
+        numberOfElements:
+          type: integer
+          format: int32
+          description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        content:
+          type: array
+          description: The content of the page.
+          items:
+            oneOf:
+            - $ref: "#/components/schemas/ImmutableDnsEntry"
+            - $ref: "#/components/schemas/ImmutableDnsZone"
+            - $ref: "#/components/schemas/ImmutableDomainComputer"
+            - $ref: "#/components/schemas/ImmutableDomainGroup"
+            - $ref: "#/components/schemas/ImmutableDomainUser"
+            - $ref: "#/components/schemas/ImmutableOrganizationalUnit"
+        sort:
+          $ref: "#/components/schemas/SortOrder"
+          description: The sort order.
+      required:
+      - contentPresent
+      - first
+      - last
+      - nextAvailable
+      - number
+      - numberOfElements
+      - previousAvailable
+      - size
+      - totalElements
+      - totalPages
+    ImmutableDnsEntry:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+    ImmutableDnsZone:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+    ImmutableDomainComputer:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+    ImmutableDomainGroup:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+    ImmutableDomainUser:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+    ImmutableOrganizationalUnit:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
   securitySchemes:
-    bearer-jwt:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: https://openid.bremersee.org/realms/eixe/protocol/openid-connect/auth
-          tokenUrl: https://openid.bremersee.org/realms/eixe/protocol/openid-connect/token
-          scopes:
-            openid: ""
+    basic-auth:
+      type: http
+      in: header
+      scheme: basic
