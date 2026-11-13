@@ -2737,6 +2737,12 @@ components:
       properties:
         homeDirectory:
           type: string
+        logonCount:
+          type: integer
+          format: int32
+        lastLogon:
+          type: string
+          format: date-time
         email:
           type: string
         modified:
@@ -2794,12 +2800,6 @@ components:
           type: string
         telephoneNumber:
           type: string
-        logonCount:
-          type: integer
-          format: int32
-        lastLogon:
-          type: string
-          format: date-time
         title:
           type: string
         initials:
@@ -3194,17 +3194,6 @@ components:
       type: object
       description: The domain computer.
       properties:
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        sid:
-          $ref: "#/components/schemas/Sid"
-          description: The SID of the sam account.
         dnsHostName:
           type: string
           description: The dns host name of the computer.
@@ -3224,6 +3213,17 @@ components:
           description: The service principal names of the computer.
           items:
             type: string
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
         description:
           type: string
           description: The description of the computer.
@@ -3271,15 +3271,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3287,6 +3278,15 @@ components:
           type: integer
           format: int32
           description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3397,15 +3397,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3413,6 +3404,15 @@ components:
           type: integer
           format: int32
           description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3455,15 +3455,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3471,6 +3462,15 @@ components:
           type: integer
           format: int32
           description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3516,6 +3516,9 @@ components:
             type: array
             items:
               type: string
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
           member:
             type: boolean
             default: false
@@ -3530,9 +3533,6 @@ components:
             default: false
             description: Determines whether the requested group is the primary group
               if this sam account or not.
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
           displayName:
             type: string
             description: The display name of the member.
@@ -3572,15 +3572,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3588,6 +3579,15 @@ components:
           type: integer
           format: int32
           description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3716,15 +3716,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3732,6 +3723,15 @@ components:
           type: integer
           format: int32
           description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3804,15 +3804,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3820,6 +3811,15 @@ components:
           type: integer
           format: int32
           description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3861,15 +3861,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3877,6 +3868,15 @@ components:
           type: integer
           format: int32
           description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3948,15 +3948,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3964,6 +3955,15 @@ components:
           type: integer
           format: int32
           description: The number of elements.
+        first:
+          type: boolean
+          description: Indicates whether the page or slice is the first.
+        last:
+          type: boolean
+          description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3976,7 +3976,6 @@ components:
             - $ref: "#/components/schemas/ImmutableDomainGroup"
             - $ref: "#/components/schemas/ImmutableDomainUser"
             - $ref: "#/components/schemas/ImmutableOrganizationalUnit"
-            - $ref: "#/components/schemas/ImmutableSamAccountIntermediate"
         sort:
           $ref: "#/components/schemas/SortOrder"
           description: The sort order.
@@ -3994,322 +3993,21 @@ components:
     ImmutableDnsEntry:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          zoneName:
-            type: string
-            description: The zone name of this dns entry.
-          name:
-            type: string
-            description: The name of this dns entry.
-          type:
-            $ref: "#/components/schemas/DnsEntryType"
-            description: The type of this dns entry.
-          value:
-            type: string
-            description: The value of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
-          serial:
-            type: integer
-            format: int32
-            description: The serial of this dns entry.
-          ttlSeconds:
-            type: integer
-            format: int32
-            description: The ttl seconds of this dns entry.
-          conflict:
-            type: boolean
-            default: false
-            description: Determines whether this DNS entry is marked as conflict or
-              not.
-            readOnly: true
-          displayName:
-            type: string
-            description: The display name of this dns entry.
-            readOnly: true
-      required:
-      - name
-      - type
-      - value
     ImmutableDnsZone:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          name:
-            type: string
-            description: The zone name.
-          zoneType:
-            type: string
-            description: The zone type.
-          reverseZone:
-            type: boolean
-            description: Specifies whether this zone is a reverse zone or not.
-          allowUpdate:
-            type: string
-          paused:
-            type: boolean
-          shutdown:
-            type: boolean
-          autoCreated:
-            type: boolean
-          useDatabase:
-            type: boolean
-          dataFile:
-            type: string
-          useWins:
-            type: boolean
-          useNbstat:
-            type: boolean
-          aging:
-            type: boolean
-          fqdn:
-            type: string
-          queuedForBackgroundLoad:
-            type: boolean
-          backgroundLoadInProgress:
-            type: boolean
-          readOnlyZone:
-            type: boolean
-      required:
-      - name
     ImmutableDomainComputer:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
-          memberships:
-            type: array
-            items:
-              type: string
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
-          primaryGroupId:
-            type: integer
-            format: int32
-            description: The primary group ID of the computer.
-          dnsHostName:
-            type: string
-            description: The dns host name of the computer.
-          networkAddresses:
-            type: array
-            description: The network addresses of the computer.
-            items:
-              type: string
-          operatingSystem:
-            type: string
-            description: The operating system of the computer.
-          operatingSystemVersion:
-            type: string
-            description: The version operating system.
-          description:
-            type: string
-            description: The description of the computer.
-          servicePrincipalNames:
-            type: array
-            description: The service principal names of the computer.
-            items:
-              type: string
-      required:
-      - samAccountName
     ImmutableDomainGroup:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
-          memberships:
-            type: array
-            items:
-              type: string
-          description:
-            type: string
-            description: The description of the domain group.
-          email:
-            type: string
-            description: The email address of the domain group.
-          gidNumber:
-            type: integer
-            format: int32
-            description: Group's Unix/RFC2307 GID number.
-          groupType:
-            $ref: "#/components/schemas/DomainGroupType"
-            description: The type of the domain group.
-          members:
-            type: array
-            description: The members of the domain group.
-            items:
-              type: string
-          nisDomain:
-            type: string
-            description: Group's Unix/RFC2307 NIS domain.
-          groupId:
-            type: integer
-            format: int32
-            description: The group id of this domain group.
-            readOnly: true
-      required:
-      - samAccountName
     ImmutableDomainUser:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
-          memberships:
-            type: array
-            items:
-              type: string
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
-          accountControl:
-            $ref: "#/components/schemas/DomainUserAccountControl"
-            description: User's account control.
-          accountExpires:
-            type: string
-            format: date-time
-          company:
-            type: string
-          department:
-            type: string
-          description:
-            type: string
-          displayName:
-            type: string
-          email:
-            type: string
-          firstName:
-            type: string
-          gecos:
-            type: string
-          gidNumber:
-            type: integer
-            format: int32
-          homeDirectory:
-            type: string
-          homeDrive:
-            type: string
-          initials:
-            type: string
-          lastLogon:
-            type: string
-            format: date-time
-          lastName:
-            type: string
-          loginShell:
-            type: string
-          logonCount:
-            type: integer
-            format: int32
-          mobile:
-            type: string
-          nisDomain:
-            type: string
-          passwordLastSet:
-            type: string
-            format: date-time
-          physicalDeliveryOfficeName:
-            type: string
-          preferredLanguage:
-            type: string
-            default: de-DE
-            description: User's preferred language. ISO 639-1 language codes. The
-              combinations like de-DE and en-US with ISO-639 and ISO-3166 also work.
-          primaryGroupId:
-            type: integer
-            format: int32
-            description: The primary group ID of the user.
-          profilePath:
-            type: string
-          scriptPath:
-            type: string
-          telephoneNumber:
-            type: string
-          title:
-            type: string
-          uid:
-            type: string
-          uidNumber:
-            type: integer
-            format: int32
-          unixHomeDirectory:
-            type: string
-          userPrincipalName:
-            type: string
-      required:
-      - accountControl
-      - samAccountName
     ImmutableOrganizationalUnit:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          description:
-            type: string
-          name:
-            type: string
-            description: The name of this organizational unit.
-          systemOu:
-            type: boolean
-            default: false
-            description: Determines whether this organizational unit is a system one
-              or not.
-      required:
-      - name
-    ImmutableSamAccountIntermediate:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
-          primaryGroupId:
-            type: integer
-            format: int32
-          memberships:
-            type: array
-            items:
-              type: string
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
-      required:
-      - samAccountName
     SamAccount:
       type: object
       description: "Active directory base entry.The base of a 'SamAccount' like 'User',\
