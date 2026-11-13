@@ -1611,14 +1611,14 @@ paths:
         required: true
         schema:
           type: string
-      requestBody:
-        content:
-          application/json: {}
-        required: true
       responses:
         "200":
           description: OK
-          content: {}
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: "#/components/schemas/ImmutableDnsEntry"
         "400":
           description: Bad request
           content:
@@ -1694,7 +1694,11 @@ paths:
       responses:
         "200":
           description: OK
-          content: {}
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: "#/components/schemas/ImmutableDnsEntry"
         "400":
           description: Bad request
           content:
@@ -1767,7 +1771,11 @@ paths:
       responses:
         "200":
           description: OK
-          content: {}
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: "#/components/schemas/ImmutableDnsEntry"
         "400":
           description: Bad request
           content:
@@ -2830,15 +2838,15 @@ components:
       type: object
       description: Domain user's account control.
       properties:
+        passwordExpirationEnabled:
+          type: boolean
+          default: false
+          description: Specifies whether the password expiration is enabled or not.
         normalAccount:
           type: boolean
           default: true
           description: Specifies whether the account of the domain user is a normal
             one or not.
-        passwordExpirationEnabled:
-          type: boolean
-          default: false
-          description: Specifies whether the password expiration is enabled or not.
         enabled:
           type: boolean
           default: true
@@ -2967,8 +2975,44 @@ components:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
     DnsEntry:
+      allOf:
+      - $ref: "#/components/schemas/AdEntry"
+      - type: object
+        properties:
+          zoneName:
+            type: string
+            description: The zone name of this dns entry.
+          ttlSeconds:
+            type: integer
+            format: int32
+            description: The ttl seconds of this dns entry.
+          serial:
+            type: integer
+            format: int32
+            description: The serial of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
+          conflict:
+            type: boolean
+            default: false
+            description: Determines whether this DNS entry is marked as conflict or
+              not.
+            readOnly: true
+          name:
+            type: string
+            description: The name of this dns entry.
+          value:
+            type: string
+            description: The value of this dns entry.
+          type:
+            $ref: "#/components/schemas/DnsEntryType"
+            description: The type of this dns entry.
+          displayName:
+            type: string
+            description: The display name of this dns entry.
+            readOnly: true
       description: DNS entry.
-      properties: {}
       required:
       - name
       - type
@@ -3060,6 +3104,14 @@ components:
       - CAA
       - TA
       - DLV
+    ImmutableDnsEntry:
+      allOf:
+      - $ref: "#/components/schemas/DnsEntry"
+      description: DNS entry.
+      required:
+      - name
+      - type
+      - value
     DomainComputer:
       type: object
       description: The domain computer.
@@ -3631,15 +3683,6 @@ components:
       - size
       - totalElements
       - totalPages
-    ImmutableDnsEntry:
-      allOf:
-      - $ref: "#/components/schemas/DnsEntry"
-      - $ref: "#/components/schemas/AdEntry"
-      description: DNS entry.
-      required:
-      - name
-      - type
-      - value
     DhcpLease:
       type: object
       description: The dhcp lease of the dhcp server.
