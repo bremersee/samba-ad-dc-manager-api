@@ -2735,14 +2735,10 @@ components:
       type: object
       description: The domain user.
       properties:
+        title:
+          type: string
         homeDirectory:
           type: string
-        logonCount:
-          type: integer
-          format: int32
-        lastLogon:
-          type: string
-          format: date-time
         email:
           type: string
         modified:
@@ -2800,8 +2796,12 @@ components:
           type: string
         telephoneNumber:
           type: string
-        title:
+        logonCount:
+          type: integer
+          format: int32
+        lastLogon:
           type: string
+          format: date-time
         initials:
           type: string
         displayName:
@@ -3194,6 +3194,17 @@ components:
       type: object
       description: The domain computer.
       properties:
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
         dnsHostName:
           type: string
           description: The dns host name of the computer.
@@ -3213,17 +3224,6 @@ components:
           description: The service principal names of the computer.
           items:
             type: string
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        sid:
-          $ref: "#/components/schemas/Sid"
-          description: The SID of the sam account.
         description:
           type: string
           description: The description of the computer.
@@ -3271,6 +3271,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3284,9 +3287,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3397,6 +3397,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3410,9 +3413,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3455,6 +3455,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3468,9 +3471,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3572,6 +3572,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3585,9 +3588,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3611,9 +3611,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        dhcpEnabled:
-          type: boolean
         mailEnabled:
+          type: boolean
+        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3716,6 +3716,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3729,9 +3732,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3804,6 +3804,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3817,9 +3820,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3861,6 +3861,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3874,9 +3877,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3948,6 +3948,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3961,9 +3964,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
