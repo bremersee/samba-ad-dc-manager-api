@@ -2666,8 +2666,6 @@ components:
       - $ref: "#/components/schemas/AdEntry"
       - type: object
         properties:
-          title:
-            type: string
           homeDirectory:
             type: string
           email:
@@ -2725,6 +2723,8 @@ components:
           lastLogon:
             type: string
             format: date-time
+          title:
+            type: string
           initials:
             type: string
           displayName:
@@ -2987,6 +2987,8 @@ components:
       - $ref: "#/components/schemas/AdEntry"
       - type: object
         properties:
+          aging:
+            type: boolean
           shutdown:
             type: boolean
           reverseZone:
@@ -2997,6 +2999,10 @@ components:
             description: The zone type.
           paused:
             type: boolean
+          useWins:
+            type: boolean
+          fqdn:
+            type: string
           allowUpdate:
             type: string
           autoCreated:
@@ -3005,14 +3011,8 @@ components:
             type: boolean
           dataFile:
             type: string
-          useWins:
-            type: boolean
           useNbstat:
             type: boolean
-          aging:
-            type: boolean
-          fqdn:
-            type: string
           queuedForBackgroundLoad:
             type: boolean
           backgroundLoadInProgress:
@@ -3037,13 +3037,13 @@ components:
             type: integer
             format: int32
             description: The ttl seconds of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
           serial:
             type: integer
             format: int32
             description: The serial of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
           conflict:
             type: boolean
             default: false
@@ -3227,6 +3227,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3240,9 +3243,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3353,6 +3353,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3366,9 +3369,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3411,6 +3411,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3424,9 +3427,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3528,6 +3528,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3541,9 +3544,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3672,6 +3672,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3685,9 +3688,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3760,6 +3760,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3773,9 +3776,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3817,6 +3817,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3830,9 +3833,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3856,7 +3856,7 @@ components:
       type: object
       description: Active directory base entry.
       discriminator:
-        propertyName: _type
+        propertyName: _json_type
         mapping:
           dns-entry: "#/components/schemas/DnsEntry"
           dns-zone: "#/components/schemas/DnsZone"
@@ -3878,10 +3878,10 @@ components:
           type: string
           format: date-time
           description: The creation date.
-        _type:
+        _json_type:
           type: string
       required:
-      - _type
+      - _json_type
     AdEntryPage:
       type: object
       properties:
@@ -3904,6 +3904,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3917,9 +3920,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -4055,7 +4055,7 @@ components:
               object or not.
       description: "The base of a 'SamAccount' like 'User', 'Group' and 'Computer'."
       discriminator:
-        propertyName: _type
+        propertyName: _json_type
         mapping:
           computer: "#/components/schemas/DomainComputer"
           group: "#/components/schemas/DomainGroup"
