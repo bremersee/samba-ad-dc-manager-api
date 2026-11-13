@@ -2802,9 +2802,9 @@ components:
         lastLogon:
           type: string
           format: date-time
-        initials:
-          type: string
         displayName:
+          type: string
+        initials:
           type: string
         description:
           type: string
@@ -3611,9 +3611,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        mailEnabled:
-          type: boolean
         dhcpEnabled:
+          type: boolean
+        mailEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3901,15 +3901,6 @@ components:
       description: Active directory base entry.
       discriminator:
         propertyName: _type
-        mapping:
-          dns-entry: "#/components/schemas/null"
-          dns-zone: "#/components/schemas/null"
-          organizational-unit: "#/components/schemas/null"
-          sam-account: "#/components/schemas/SamAccount"
-          computer: "#/components/schemas/null"
-          group: "#/components/schemas/null"
-          group-member: "#/components/schemas/DomainGroupMember"
-          user: "#/components/schemas/null"
       properties:
         modified:
           type: string
@@ -4008,49 +3999,6 @@ components:
     ImmutableOrganizationalUnit:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
-    SamAccount:
-      type: object
-      description: "Active directory base entry.The base of a 'SamAccount' like 'User',\
-        \ 'Group' and 'Computer'."
-      discriminator:
-        propertyName: _type
-        mapping:
-          computer: "#/components/schemas/null"
-          group: "#/components/schemas/null"
-          group-member: "#/components/schemas/DomainGroupMember"
-          user: "#/components/schemas/null"
-      properties:
-        memberships:
-          type: array
-          items:
-            type: string
-        primaryGroupId:
-          type: integer
-          format: int32
-        sid:
-          $ref: "#/components/schemas/Sid"
-          description: The SID of the sam account.
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        distinguishedName:
-          type: string
-          description: The distinguished name.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        samAccountName:
-          type: string
-          description: The unique name of the sam account.
-        criticalSystemObject:
-          type: boolean
-          default: false
-          description: Determines whether this sam account is a critical system object
-            or not.
-      required:
-      - samAccountName
   securitySchemes:
     basic-auth:
       type: http
