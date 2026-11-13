@@ -2666,6 +2666,8 @@ components:
       - $ref: "#/components/schemas/AdEntry"
       - type: object
         properties:
+          title:
+            type: string
           homeDirectory:
             type: string
           email:
@@ -2723,8 +2725,6 @@ components:
           lastLogon:
             type: string
             format: date-time
-          title:
-            type: string
           displayName:
             type: string
           initials:
@@ -3037,13 +3037,13 @@ components:
             type: integer
             format: int32
             description: The ttl seconds of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
           serial:
             type: integer
             format: int32
             description: The serial of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
           conflict:
             type: boolean
             default: false
@@ -3472,6 +3472,9 @@ components:
             type: array
             items:
               type: string
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
           member:
             type: boolean
             default: false
@@ -3486,9 +3489,6 @@ components:
             default: false
             description: Determines whether the requested group is the primary group
               if this sam account or not.
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
           displayName:
             type: string
             description: The display name of the member.
