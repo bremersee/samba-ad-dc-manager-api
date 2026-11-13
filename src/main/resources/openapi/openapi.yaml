@@ -2732,6 +2732,8 @@ components:
       type: object
       description: The domain user.
       properties:
+        title:
+          type: string
         homeDirectory:
           type: string
         email:
@@ -2797,8 +2799,6 @@ components:
         lastLogon:
           type: string
           format: date-time
-        title:
-          type: string
         initials:
           type: string
         displayName:
@@ -3018,6 +3018,12 @@ components:
           description: The zone type.
         paused:
           type: boolean
+        aging:
+          type: boolean
+        fqdn:
+          type: string
+        useWins:
+          type: boolean
         allowUpdate:
           type: string
         autoCreated:
@@ -3026,14 +3032,8 @@ components:
           type: boolean
         dataFile:
           type: string
-        useWins:
-          type: boolean
         useNbstat:
           type: boolean
-        aging:
-          type: boolean
-        fqdn:
-          type: string
         queuedForBackgroundLoad:
           type: boolean
         backgroundLoadInProgress:
@@ -3617,9 +3617,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        mailEnabled:
-          type: boolean
         dhcpEnabled:
+          type: boolean
+        mailEnabled:
           type: boolean
     PasswordComplexity:
       type: string
