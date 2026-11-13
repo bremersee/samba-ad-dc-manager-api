@@ -2612,10 +2612,7 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AdEntryPage"
+          content: {}
         "400":
           description: Bad request
           content:
@@ -2735,8 +2732,16 @@ components:
       type: object
       description: The domain user.
       properties:
+        title:
+          type: string
         homeDirectory:
           type: string
+        logonCount:
+          type: integer
+          format: int32
+        lastLogon:
+          type: string
+          format: date-time
         email:
           type: string
         modified:
@@ -2793,14 +2798,6 @@ components:
         mobile:
           type: string
         telephoneNumber:
-          type: string
-        logonCount:
-          type: integer
-          format: int32
-        lastLogon:
-          type: string
-          format: date-time
-        title:
           type: string
         initials:
           type: string
@@ -3021,22 +3018,22 @@ components:
           description: The zone type.
         paused:
           type: boolean
-        fqdn:
+        allowUpdate:
           type: string
-        aging:
-          type: boolean
-        useWins:
+        autoCreated:
           type: boolean
         useDatabase:
           type: boolean
-        autoCreated:
-          type: boolean
-        allowUpdate:
-          type: string
         dataFile:
           type: string
+        useWins:
+          type: boolean
         useNbstat:
           type: boolean
+        aging:
+          type: boolean
+        fqdn:
+          type: string
         queuedForBackgroundLoad:
           type: boolean
         backgroundLoadInProgress:
@@ -3194,17 +3191,6 @@ components:
       type: object
       description: The domain computer.
       properties:
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        sid:
-          $ref: "#/components/schemas/Sid"
-          description: The SID of the sam account.
         dnsHostName:
           type: string
           description: The dns host name of the computer.
@@ -3224,6 +3210,17 @@ components:
           description: The service principal names of the computer.
           items:
             type: string
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
         description:
           type: string
           description: The description of the computer.
@@ -3248,18 +3245,6 @@ components:
             or not.
       required:
       - samAccountName
-    CaseHandling:
-      type: string
-      default: INSENSITIVE
-      enum:
-      - insensitive
-      - sensitive
-    Direction:
-      type: string
-      default: ASC
-      enum:
-      - asc
-      - desc
     DomainUserPage:
       type: object
       description: A page of domain users.
@@ -3318,13 +3303,6 @@ components:
       - size
       - totalElements
       - totalPages
-    NullHandling:
-      type: string
-      default: NATIVE
-      enum:
-      - nulls-first
-      - nulls-last
-      - native
     SortOrder:
       type: object
       description: The sort order.
@@ -3337,6 +3315,18 @@ components:
       xml:
         name: sortOrder
         namespace: http://bremersee.org/xmlschemas/comparator/v4
+    SortOrderCaseHandling:
+      type: string
+      default: INSENSITIVE
+      enum:
+      - insensitive
+      - sensitive
+    SortOrderDirection:
+      type: string
+      default: ASC
+      enum:
+      - asc
+      - desc
     SortOrderItem:
       type: object
       description: A sort order defines how a field of an object is sorted.
@@ -3345,17 +3335,24 @@ components:
           type: string
           description: The field name or path.
         direction:
-          $ref: "#/components/schemas/Direction"
+          $ref: "#/components/schemas/SortOrderDirection"
           description: The direction.
         case-handling:
-          $ref: "#/components/schemas/CaseHandling"
+          $ref: "#/components/schemas/SortOrderCaseHandling"
           description: The case-handling.
         null-handling:
-          $ref: "#/components/schemas/NullHandling"
+          $ref: "#/components/schemas/SortOrderNullHandling"
           description: The null-handling.
       xml:
         name: sortOrderItem
         namespace: http://bremersee.org/xmlschemas/comparator/v4
+    SortOrderNullHandling:
+      type: string
+      default: NATIVE
+      enum:
+      - nulls-first
+      - nulls-last
+      - native
     DomainUserIdentifier:
       type: string
       enum:
@@ -3505,46 +3502,55 @@ components:
       - group
       - computer
     DomainGroupMember:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-      - type: object
-        properties:
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
-          memberships:
-            type: array
-            items:
-              type: string
-          member:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a member of the requested
-              group or not.
-          primaryGroupId:
-            type: integer
-            format: int32
-            description: The primary group ID of the member.
-          primaryMember:
-            type: boolean
-            default: false
-            description: Determines whether the requested group is the primary group
-              if this sam account or not.
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
-          displayName:
-            type: string
-            description: The display name of the member.
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
+      type: object
       description: The domain group.
+      properties:
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
+        memberships:
+          type: array
+          items:
+            type: string
+        distinguishedName:
+          type: string
+          description: The distinguished name.
+        memberType:
+          $ref: "#/components/schemas/DomainGroupMemberType"
+          description: The type of the member.
+        member:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a member of the requested
+            group or not.
+        primaryGroupId:
+          type: integer
+          format: int32
+          description: The primary group ID of the member.
+        primaryMember:
+          type: boolean
+          default: false
+          description: Determines whether the requested group is the primary group
+            if this sam account or not.
+        displayName:
+          type: string
+          description: The display name of the member.
+        samAccountName:
+          type: string
+          description: The unique name of the sam account.
+        criticalSystemObject:
+          type: boolean
+          default: false
+          description: Determines whether this sam account is a critical system object
+            or not.
       required:
       - displayName
       - memberType
@@ -3896,108 +3902,6 @@ components:
       - size
       - totalElements
       - totalPages
-    AdEntry:
-      type: object
-      discriminator:
-        propertyName: _type
-      properties:
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        distinguishedName:
-          type: string
-          description: The distinguished name.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        _type:
-          type: string
-      required:
-      - _type
-    AdEntryPage:
-      type: object
-      properties:
-        number:
-          type: integer
-          format: int32
-          description: The page or slice number starting with 0.
-        size:
-          type: integer
-          format: int32
-          description: The size of the page or slice (not the size of the content).
-        nextAvailable:
-          type: boolean
-          description: Indicates whether a next page or slice is available.
-        totalElements:
-          type: integer
-          format: int64
-          description: The size of available elements.
-        totalPages:
-          type: integer
-          format: int32
-          description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
-        contentPresent:
-          type: boolean
-          description: Indicates whether the content is present.
-        numberOfElements:
-          type: integer
-          format: int32
-          description: The number of elements.
-        first:
-          type: boolean
-          description: Indicates whether the page or slice is the first.
-        last:
-          type: boolean
-          description: Indicates whether the page or slice is the last.
-        content:
-          type: array
-          description: The content of the page.
-          items:
-            oneOf:
-            - $ref: "#/components/schemas/DomainGroupMember"
-            - $ref: "#/components/schemas/ImmutableDnsEntry"
-            - $ref: "#/components/schemas/ImmutableDnsZone"
-            - $ref: "#/components/schemas/ImmutableDomainComputer"
-            - $ref: "#/components/schemas/ImmutableDomainGroup"
-            - $ref: "#/components/schemas/ImmutableDomainUser"
-            - $ref: "#/components/schemas/ImmutableOrganizationalUnit"
-        sort:
-          $ref: "#/components/schemas/SortOrder"
-          description: The sort order.
-      required:
-      - contentPresent
-      - first
-      - last
-      - nextAvailable
-      - number
-      - numberOfElements
-      - previousAvailable
-      - size
-      - totalElements
-      - totalPages
-    ImmutableDnsEntry:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableDnsZone:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableDomainComputer:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableDomainGroup:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableDomainUser:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
-    ImmutableOrganizationalUnit:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
   securitySchemes:
     basic-auth:
       type: http
