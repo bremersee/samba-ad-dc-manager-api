@@ -1618,10 +1618,7 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DnsEntry"
+          content: {}
         "400":
           description: Bad request
           content:
@@ -1697,10 +1694,7 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DnsEntry"
+          content: {}
         "400":
           description: Bad request
           content:
@@ -1773,10 +1767,7 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DnsEntry"
+          content: {}
         "400":
           description: Bad request
           content:
@@ -2976,8 +2967,12 @@ components:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
     DnsEntry:
-      allOf:
-      - $ref: "#/components/schemas/AdEntry"
+      description: DNS entry.
+      properties: {}
+      required:
+      - name
+      - type
+      - value
     DnsEntryType:
       type: string
       description: The type of a DNS record.
@@ -3495,9 +3490,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        dhcpEnabled:
-          type: boolean
         mailEnabled:
+          type: boolean
+        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3620,7 +3615,8 @@ components:
           type: array
           description: The content of the page.
           items:
-            $ref: "#/components/schemas/DnsEntry"
+            oneOf:
+            - $ref: "#/components/schemas/ImmutableDnsEntry"
         sort:
           $ref: "#/components/schemas/SortOrder"
           description: The sort order.
@@ -3635,6 +3631,15 @@ components:
       - size
       - totalElements
       - totalPages
+    ImmutableDnsEntry:
+      allOf:
+      - $ref: "#/components/schemas/DnsEntry"
+      - $ref: "#/components/schemas/AdEntry"
+      description: DNS entry.
+      required:
+      - name
+      - type
+      - value
     DhcpLease:
       type: object
       description: The dhcp lease of the dhcp server.
