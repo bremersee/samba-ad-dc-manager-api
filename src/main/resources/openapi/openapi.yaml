@@ -2725,9 +2725,9 @@ components:
           lastLogon:
             type: string
             format: date-time
-          displayName:
-            type: string
           initials:
+            type: string
+          displayName:
             type: string
           description:
             type: string
@@ -3472,9 +3472,6 @@ components:
             type: array
             items:
               type: string
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
           member:
             type: boolean
             default: false
@@ -3489,6 +3486,9 @@ components:
             default: false
             description: Determines whether the requested group is the primary group
               if this sam account or not.
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
           displayName:
             type: string
             description: The display name of the member.
@@ -3567,9 +3567,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        dhcpEnabled:
-          type: boolean
         mailEnabled:
+          type: boolean
+        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3857,15 +3857,6 @@ components:
       description: Active directory base entry.
       discriminator:
         propertyName: _json_type
-        mapping:
-          dns-entry: "#/components/schemas/DnsEntry"
-          dns-zone: "#/components/schemas/DnsZone"
-          organizational-unit: "#/components/schemas/OrganizationalUnit"
-          sam-account: "#/components/schemas/SamAccount"
-          computer: "#/components/schemas/DomainComputer"
-          group: "#/components/schemas/DomainGroup"
-          group-member: "#/components/schemas/DomainGroupMember"
-          user: "#/components/schemas/DomainUser"
       properties:
         modified:
           type: string
