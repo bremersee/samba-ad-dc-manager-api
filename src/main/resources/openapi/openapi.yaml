@@ -2735,6 +2735,8 @@ components:
       type: object
       description: The domain user.
       properties:
+        title:
+          type: string
         homeDirectory:
           type: string
         email:
@@ -2800,13 +2802,11 @@ components:
         lastLogon:
           type: string
           format: date-time
-        title:
+        initials:
           type: string
         displayName:
           type: string
         description:
-          type: string
-        initials:
           type: string
         memberships:
           type: array
@@ -3019,8 +3019,14 @@ components:
         zoneType:
           type: string
           description: The zone type.
+        useWins:
+          type: boolean
         paused:
           type: boolean
+        aging:
+          type: boolean
+        fqdn:
+          type: string
         allowUpdate:
           type: string
         autoCreated:
@@ -3029,14 +3035,8 @@ components:
           type: boolean
         dataFile:
           type: string
-        useWins:
-          type: boolean
         useNbstat:
           type: boolean
-        aging:
-          type: boolean
-        fqdn:
-          type: string
         queuedForBackgroundLoad:
           type: boolean
         backgroundLoadInProgress:
@@ -3248,6 +3248,18 @@ components:
             or not.
       required:
       - samAccountName
+    CaseHandling:
+      type: string
+      default: INSENSITIVE
+      enum:
+      - insensitive
+      - sensitive
+    Direction:
+      type: string
+      default: ASC
+      enum:
+      - asc
+      - desc
     DomainUserPage:
       type: object
       description: A page of domain users.
@@ -3306,6 +3318,13 @@ components:
       - size
       - totalElements
       - totalPages
+    NullHandling:
+      type: string
+      default: NATIVE
+      enum:
+      - nulls-first
+      - nulls-last
+      - native
     SortOrder:
       type: object
       description: The sort order.
@@ -3326,27 +3345,14 @@ components:
           type: string
           description: The field name or path.
         direction:
-          type: string
-          default: ASC
+          $ref: "#/components/schemas/Direction"
           description: The direction.
-          enum:
-          - asc
-          - desc
         case-handling:
-          type: string
-          default: INSENSITIVE
+          $ref: "#/components/schemas/CaseHandling"
           description: The case-handling.
-          enum:
-          - insensitive
-          - sensitive
         null-handling:
-          type: string
-          default: NATIVE
+          $ref: "#/components/schemas/NullHandling"
           description: The null-handling.
-          enum:
-          - nulls-first
-          - nulls-last
-          - native
       xml:
         name: sortOrderItem
         namespace: http://bremersee.org/xmlschemas/comparator/v4
