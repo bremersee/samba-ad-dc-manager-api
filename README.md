@@ -1,2 +1,2 @@
-# samba-ad-dc-manager-api
-RESTful api clients for samba-ad-dc-manager
+# Samba AD DC Manager API
+RESTful api clients for Samba AD DC Manager
