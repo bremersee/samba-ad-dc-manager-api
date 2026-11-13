@@ -2732,8 +2732,6 @@ components:
       type: object
       description: The domain user.
       properties:
-        title:
-          type: string
         homeDirectory:
           type: string
         email:
@@ -2799,6 +2797,8 @@ components:
         lastLogon:
           type: string
           format: date-time
+        title:
+          type: string
         initials:
           type: string
         displayName:
