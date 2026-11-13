@@ -2736,12 +2736,6 @@ components:
           type: string
         homeDirectory:
           type: string
-        logonCount:
-          type: integer
-          format: int32
-        lastLogon:
-          type: string
-          format: date-time
         email:
           type: string
         modified:
@@ -2799,6 +2793,12 @@ components:
           type: string
         telephoneNumber:
           type: string
+        logonCount:
+          type: integer
+          format: int32
+        lastLogon:
+          type: string
+          format: date-time
         initials:
           type: string
         displayName:
@@ -3191,6 +3191,17 @@ components:
       type: object
       description: The domain computer.
       properties:
+        modified:
+          type: string
+          format: date-time
+          description: The last modification date.
+        created:
+          type: string
+          format: date-time
+          description: The creation date.
+        sid:
+          $ref: "#/components/schemas/Sid"
+          description: The SID of the sam account.
         dnsHostName:
           type: string
           description: The dns host name of the computer.
@@ -3210,17 +3221,6 @@ components:
           description: The service principal names of the computer.
           items:
             type: string
-        modified:
-          type: string
-          format: date-time
-          description: The last modification date.
-        created:
-          type: string
-          format: date-time
-          description: The creation date.
-        sid:
-          $ref: "#/components/schemas/Sid"
-          description: The SID of the sam account.
         description:
           type: string
           description: The description of the computer.
@@ -3523,9 +3523,6 @@ components:
         distinguishedName:
           type: string
           description: The distinguished name.
-        memberType:
-          $ref: "#/components/schemas/DomainGroupMemberType"
-          description: The type of the member.
         member:
           type: boolean
           default: false
@@ -3540,6 +3537,9 @@ components:
           default: false
           description: Determines whether the requested group is the primary group
             if this sam account or not.
+        memberType:
+          $ref: "#/components/schemas/DomainGroupMemberType"
+          description: The type of the member.
         displayName:
           type: string
           description: The display name of the member.
