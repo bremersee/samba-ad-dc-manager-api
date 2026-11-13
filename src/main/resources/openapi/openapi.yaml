@@ -1617,8 +1617,7 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                - $ref: "#/components/schemas/ImmutableDnsEntry"
+                $ref: "#/components/schemas/DnsEntry"
         "400":
           description: Bad request
           content:
@@ -1697,8 +1696,7 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                - $ref: "#/components/schemas/ImmutableDnsEntry"
+                $ref: "#/components/schemas/DnsEntry"
         "400":
           description: Bad request
           content:
@@ -1774,8 +1772,7 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                - $ref: "#/components/schemas/ImmutableDnsEntry"
+                $ref: "#/components/schemas/DnsEntry"
         "400":
           description: Bad request
           content:
@@ -2731,6 +2728,8 @@ components:
       type: object
       description: The domain user.
       properties:
+        title:
+          type: string
         homeDirectory:
           type: string
         email:
@@ -2796,8 +2795,6 @@ components:
         lastLogon:
           type: string
           format: date-time
-        title:
-          type: string
         initials:
           type: string
         displayName:
@@ -2838,15 +2835,15 @@ components:
       type: object
       description: Domain user's account control.
       properties:
-        passwordExpirationEnabled:
-          type: boolean
-          default: false
-          description: Specifies whether the password expiration is enabled or not.
         normalAccount:
           type: boolean
           default: true
           description: Specifies whether the account of the domain user is a normal
             one or not.
+        passwordExpirationEnabled:
+          type: boolean
+          default: false
+          description: Specifies whether the password expiration is enabled or not.
         enabled:
           type: boolean
           default: true
@@ -3104,14 +3101,6 @@ components:
       - CAA
       - TA
       - DLV
-    ImmutableDnsEntry:
-      allOf:
-      - $ref: "#/components/schemas/DnsEntry"
-      description: DNS entry.
-      required:
-      - name
-      - type
-      - value
     DomainComputer:
       type: object
       description: The domain computer.
@@ -3542,9 +3531,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        mailEnabled:
-          type: boolean
         dhcpEnabled:
+          type: boolean
+        mailEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3667,8 +3656,7 @@ components:
           type: array
           description: The content of the page.
           items:
-            oneOf:
-            - $ref: "#/components/schemas/ImmutableDnsEntry"
+            $ref: "#/components/schemas/DnsEntry"
         sort:
           $ref: "#/components/schemas/SortOrder"
           description: The sort order.
