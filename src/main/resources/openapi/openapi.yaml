@@ -2663,11 +2663,9 @@ components:
   schemas:
     DomainUser:
       allOf:
-      - $ref: "#/components/schemas/AdEntry"
+      - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
-          title:
-            type: string
           homeDirectory:
             type: string
           email:
@@ -2701,13 +2699,10 @@ components:
             type: string
           lastName:
             type: string
-          gidNumber:
+          uidNumber:
             type: integer
             format: int32
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
-          uidNumber:
+          gidNumber:
             type: integer
             format: int32
           accountExpires:
@@ -2725,16 +2720,14 @@ components:
           lastLogon:
             type: string
             format: date-time
+          title:
+            type: string
           initials:
             type: string
           displayName:
             type: string
           description:
             type: string
-          memberships:
-            type: array
-            items:
-              type: string
           primaryGroupId:
             type: integer
             format: int32
@@ -2747,14 +2740,6 @@ components:
           accountControl:
             $ref: "#/components/schemas/DomainUserAccountControl"
             description: User's account control.
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
       description: The domain user.
       required:
       - accountControl
@@ -2890,7 +2875,7 @@ components:
       - name
     DomainGroup:
       allOf:
-      - $ref: "#/components/schemas/AdEntry"
+      - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
           members:
@@ -2911,13 +2896,6 @@ components:
           description:
             type: string
             description: The description of the domain group.
-          memberships:
-            type: array
-            items:
-              type: string
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
           groupType:
             $ref: "#/components/schemas/DomainGroupType"
             description: The type of the domain group.
@@ -2926,14 +2904,6 @@ components:
             format: int32
             description: The group id of this domain group.
             readOnly: true
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
       description: The domain group.
       required:
       - samAccountName
@@ -2997,12 +2967,6 @@ components:
             description: The zone type.
           paused:
             type: boolean
-          useWins:
-            type: boolean
-          fqdn:
-            type: string
-          aging:
-            type: boolean
           allowUpdate:
             type: string
           autoCreated:
@@ -3011,8 +2975,14 @@ components:
             type: boolean
           dataFile:
             type: string
+          useWins:
+            type: boolean
           useNbstat:
             type: boolean
+          aging:
+            type: boolean
+          fqdn:
+            type: string
           queuedForBackgroundLoad:
             type: boolean
           backgroundLoadInProgress:
@@ -3157,12 +3127,9 @@ components:
       - DLV
     DomainComputer:
       allOf:
-      - $ref: "#/components/schemas/AdEntry"
+      - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
           dnsHostName:
             type: string
             description: The dns host name of the computer.
@@ -3185,22 +3152,10 @@ components:
           description:
             type: string
             description: The description of the computer.
-          memberships:
-            type: array
-            items:
-              type: string
           primaryGroupId:
             type: integer
             format: int32
             description: The primary group ID of the computer.
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
       description: The domain computer.
       required:
       - samAccountName
@@ -3462,16 +3417,9 @@ components:
       - computer
     DomainGroupMember:
       allOf:
-      - $ref: "#/components/schemas/AdEntry"
+      - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
-          sid:
-            $ref: "#/components/schemas/Sid"
-            description: The SID of the sam account.
-          memberships:
-            type: array
-            items:
-              type: string
           member:
             type: boolean
             default: false
@@ -3492,14 +3440,6 @@ components:
           displayName:
             type: string
             description: The display name of the member.
-          samAccountName:
-            type: string
-            description: The unique name of the sam account.
-          criticalSystemObject:
-            type: boolean
-            default: false
-            description: Determines whether this sam account is a critical system
-              object or not.
       description: The domain group.
       required:
       - displayName
@@ -3862,10 +3802,6 @@ components:
           DnsZone: "#/components/schemas/DnsZone"
           OrganizationalUnit: "#/components/schemas/OrganizationalUnit"
           SamAccount: "#/components/schemas/SamAccount"
-          DomainComputer: "#/components/schemas/DomainComputer"
-          DomainGroup: "#/components/schemas/DomainGroup"
-          DomainGroupMember: "#/components/schemas/DomainGroupMember"
-          DomainUser: "#/components/schemas/DomainUser"
       properties:
         modified:
           type: string
@@ -3927,12 +3863,12 @@ components:
             oneOf:
             - $ref: "#/components/schemas/DnsEntry"
             - $ref: "#/components/schemas/DnsZone"
+            - $ref: "#/components/schemas/OrganizationalUnit"
+            - $ref: "#/components/schemas/SamAccount"
             - $ref: "#/components/schemas/DomainComputer"
             - $ref: "#/components/schemas/DomainGroup"
             - $ref: "#/components/schemas/DomainGroupMember"
             - $ref: "#/components/schemas/DomainUser"
-            - $ref: "#/components/schemas/OrganizationalUnit"
-            - $ref: "#/components/schemas/SamAccount"
         sort:
           $ref: "#/components/schemas/SortOrder"
           description: The sort order.
@@ -3970,6 +3906,8 @@ components:
             default: false
             description: Determines whether this sam account is a critical system
               object or not.
+          _json_type:
+            type: string
       description: "The base of a 'SamAccount' like 'User', 'Group' and 'Computer'."
       discriminator:
         propertyName: _json_type
@@ -3979,6 +3917,7 @@ components:
           DomainGroupMember: "#/components/schemas/DomainGroupMember"
           DomainUser: "#/components/schemas/DomainUser"
       required:
+      - _json_type
       - samAccountName
   securitySchemes:
     basic-auth:
