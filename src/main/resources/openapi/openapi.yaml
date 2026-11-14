@@ -2701,10 +2701,10 @@ components:
             type: string
           lastName:
             type: string
-          gidNumber:
+          uidNumber:
             type: integer
             format: int32
-          uidNumber:
+          gidNumber:
             type: integer
             format: int32
           accountExpires:
@@ -3457,9 +3457,6 @@ components:
             type: array
             items:
               type: string
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
           member:
             type: boolean
             default: false
@@ -3474,6 +3471,9 @@ components:
             default: false
             description: Determines whether the requested group is the primary group
               if this sam account or not.
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
           displayName:
             type: string
             description: The display name of the member.
@@ -3842,15 +3842,6 @@ components:
       description: Active directory base entry.
       discriminator:
         propertyName: _json_type
-        mapping:
-          DnsEntry: "#/components/schemas/DnsEntry"
-          DnsZone: "#/components/schemas/DnsZone"
-          OrganizationalUnit: "#/components/schemas/OrganizationalUnit"
-          SamAccount: "#/components/schemas/SamAccount"
-          DomainComputer: "#/components/schemas/DomainComputer"
-          DomainGroup: "#/components/schemas/DomainGroup"
-          DomainGroupMember: "#/components/schemas/DomainGroupMember"
-          DomainUser: "#/components/schemas/DomainUser"
       properties:
         modified:
           type: string
@@ -3958,11 +3949,6 @@ components:
       description: "The base of a 'SamAccount' like 'User', 'Group' and 'Computer'."
       discriminator:
         propertyName: _json_type
-        mapping:
-          DomainComputer: "#/components/schemas/DomainComputer"
-          DomainGroup: "#/components/schemas/DomainGroup"
-          DomainGroupMember: "#/components/schemas/DomainGroupMember"
-          DomainUser: "#/components/schemas/DomainUser"
       required:
       - samAccountName
   securitySchemes:
