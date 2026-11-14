@@ -10,7 +10,7 @@ Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,AdEntry
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,Features,167,0,14,0,36,0,23,0,16,0
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,SortOrderItem.Builder,78,0,0,0,21,0,9,0,9,0
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,OrganizationalUnit.Builder,64,38,0,0,16,12,7,5,7,5
-Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DomainGroupMember.Builder,109,45,0,0,28,14,12,6,12,6
+Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DomainGroupMember.Builder,102,52,0,0,26,16,11,7,11,7
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DhcpLeasePage.Builder,174,0,0,0,45,0,17,0,17,0
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,PasswordInformation,478,0,30,0,102,0,55,0,40,0
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DomainGroupMemberModifications,173,0,16,0,39,0,23,0,15,0
@@ -68,5 +68,5 @@ Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,Sid.Bui
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DomainGroupType,171,0,14,0,37,0,23,0,16,0
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DomainComputer,340,93,28,0,65,32,35,19,21,19
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DnsEntryPage,531,0,34,0,117,0,62,0,45,0
-Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DomainGroupMember,259,78,20,0,51,26,28,14,18,14
+Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DomainGroupMember,254,83,20,0,49,28,27,15,17,15
 Samba AD DC Manager API client Model,org.bremersee.samba.ad.dc.api.model,DnsEntry.Builder,122,52,0,0,30,16,11,7,11,7
