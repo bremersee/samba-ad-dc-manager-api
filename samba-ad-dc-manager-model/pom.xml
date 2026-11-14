@@ -7,7 +7,7 @@
   <parent>
     <artifactId>samba-ad-dc-manager-api</artifactId>
     <groupId>org.bremersee</groupId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>samba-ad-dc-manager-model</artifactId>
@@ -70,6 +70,17 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -100,6 +111,8 @@
                 <interfaceOnly>true</interfaceOnly>
                 <useSpringBoot4>true</useSpringBoot4>
                 <useJackson3>true</useJackson3>
+                <generateBuilders>true</generateBuilders>
+                <disableDiscriminatorJsonIgnoreProperties>false</disableDiscriminatorJsonIgnoreProperties>
                 <skipDefaultInterface>true</skipDefaultInterface>
                 <library>spring-boot</library>
                 <modelPackage>${project.groupId}.samba.ad.dc.api.model</modelPackage>
