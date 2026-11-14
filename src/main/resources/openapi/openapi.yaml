@@ -3472,6 +3472,9 @@ components:
             type: array
             items:
               type: string
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
           member:
             type: boolean
             default: false
@@ -3486,9 +3489,6 @@ components:
             default: false
             description: Determines whether the requested group is the primary group
               if this sam account or not.
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
           displayName:
             type: string
             description: The display name of the member.
@@ -3567,9 +3567,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        mailEnabled:
-          type: boolean
         dhcpEnabled:
+          type: boolean
+        mailEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3965,10 +3965,10 @@ components:
       discriminator:
         propertyName: _json_type
         mapping:
-          computer: "#/components/schemas/DomainComputer"
-          group: "#/components/schemas/DomainGroup"
-          group-member: "#/components/schemas/DomainGroupMember"
-          user: "#/components/schemas/DomainUser"
+          DomainComputer: "#/components/schemas/DomainComputer"
+          DomainGroup: "#/components/schemas/DomainGroup"
+          DomainGroupMember: "#/components/schemas/DomainGroupMember"
+          DomainUser: "#/components/schemas/DomainUser"
       required:
       - samAccountName
   securitySchemes:
