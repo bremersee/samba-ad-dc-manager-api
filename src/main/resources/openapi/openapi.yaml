@@ -2699,10 +2699,10 @@ components:
             type: string
           lastName:
             type: string
-          uidNumber:
+          gidNumber:
             type: integer
             format: int32
-          gidNumber:
+          uidNumber:
             type: integer
             format: int32
           accountExpires:
