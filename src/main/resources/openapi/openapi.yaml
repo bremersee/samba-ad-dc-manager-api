@@ -1629,7 +1629,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DnsEntryFoo"
+                $ref: "#/components/schemas/DnsEntry"
         "400":
           description: Bad request
           content:
@@ -1708,7 +1708,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DnsEntryFoo"
+                $ref: "#/components/schemas/DnsEntry"
         "400":
           description: Bad request
           content:
@@ -1784,7 +1784,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DnsEntryFoo"
+                $ref: "#/components/schemas/DnsEntry"
         "400":
           description: Bad request
           content:
@@ -2666,6 +2666,8 @@ components:
       - $ref: "#/components/schemas/AdEntry"
       - type: object
         properties:
+          title:
+            type: string
           homeDirectory:
             type: string
           email:
@@ -2723,11 +2725,9 @@ components:
           lastLogon:
             type: string
             format: date-time
-          title:
+          initials:
             type: string
           displayName:
-            type: string
-          initials:
             type: string
           description:
             type: string
@@ -2997,6 +2997,12 @@ components:
             description: The zone type.
           paused:
             type: boolean
+          useWins:
+            type: boolean
+          fqdn:
+            type: string
+          aging:
+            type: boolean
           allowUpdate:
             type: string
           autoCreated:
@@ -3005,14 +3011,8 @@ components:
             type: boolean
           dataFile:
             type: string
-          useWins:
-            type: boolean
           useNbstat:
             type: boolean
-          aging:
-            type: boolean
-          fqdn:
-            type: string
           queuedForBackgroundLoad:
             type: boolean
           backgroundLoadInProgress:
@@ -3025,7 +3025,7 @@ components:
       description: DNS zone.
       required:
       - name
-    DnsEntryFoo:
+    DnsEntry:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
       - type: object
@@ -3037,13 +3037,13 @@ components:
             type: integer
             format: int32
             description: The ttl seconds of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
           serial:
             type: integer
             format: int32
             description: The serial of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
           conflict:
             type: boolean
             default: false
@@ -3472,9 +3472,6 @@ components:
             type: array
             items:
               type: string
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
           member:
             type: boolean
             default: false
@@ -3489,6 +3486,9 @@ components:
             default: false
             description: Determines whether the requested group is the primary group
               if this sam account or not.
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
           displayName:
             type: string
             description: The display name of the member.
@@ -3567,9 +3567,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        mailEnabled:
-          type: boolean
         dhcpEnabled:
+          type: boolean
+        mailEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3692,7 +3692,7 @@ components:
           type: array
           description: The content of the page.
           items:
-            $ref: "#/components/schemas/DnsEntryFoo"
+            $ref: "#/components/schemas/DnsEntry"
         sort:
           $ref: "#/components/schemas/SortOrder"
           description: The sort order.
@@ -3858,7 +3858,7 @@ components:
       discriminator:
         propertyName: _json_type
         mapping:
-          DnsEntry: "#/components/schemas/DnsEntryFoo"
+          DnsEntry: "#/components/schemas/DnsEntry"
           DnsZone: "#/components/schemas/DnsZone"
           OrganizationalUnit: "#/components/schemas/OrganizationalUnit"
           SamAccount: "#/components/schemas/SamAccount"
@@ -3925,7 +3925,7 @@ components:
           description: The content of the page.
           items:
             oneOf:
-            - $ref: "#/components/schemas/DnsEntryFoo"
+            - $ref: "#/components/schemas/DnsEntry"
             - $ref: "#/components/schemas/DnsZone"
             - $ref: "#/components/schemas/DomainComputer"
             - $ref: "#/components/schemas/DomainGroup"
