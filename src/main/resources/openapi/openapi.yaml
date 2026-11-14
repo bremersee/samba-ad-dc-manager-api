@@ -2666,6 +2666,8 @@ components:
       - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
+          title:
+            type: string
           homeDirectory:
             type: string
           email:
@@ -2699,10 +2701,10 @@ components:
             type: string
           lastName:
             type: string
-          uidNumber:
+          gidNumber:
             type: integer
             format: int32
-          gidNumber:
+          uidNumber:
             type: integer
             format: int32
           accountExpires:
@@ -2720,11 +2722,9 @@ components:
           lastLogon:
             type: string
             format: date-time
-          title:
+          initials:
             type: string
           displayName:
-            type: string
-          initials:
             type: string
           description:
             type: string
@@ -3007,13 +3007,13 @@ components:
             type: integer
             format: int32
             description: The ttl seconds of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
           serial:
             type: integer
             format: int32
             description: The serial of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
           conflict:
             type: boolean
             default: false
@@ -3507,11 +3507,11 @@ components:
       type: object
       description: Information about features.
       properties:
-        dhcpEnabled:
-          type: boolean
         mailEnabled:
           type: boolean
         rememberMeEnabled:
+          type: boolean
+        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
