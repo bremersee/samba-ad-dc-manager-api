@@ -5,8 +5,8 @@ pipeline {
   environment {
     //CODECOV_TOKEN = credentials('samba-ad-dc-manager-api-codecov-token')
     TEST = true
-    DEPLOY = false
-    SITE = false
+    DEPLOY = true
+    SITE = true
     CLEAN = true
   }
   tools {
