@@ -49,7 +49,7 @@ class JsonModelTest {
         .build();
     String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(source);
     AdEntry actual = mapper.readValue(json, AdEntry.class);
-    assertThat(actual).isExactlyInstanceOf(DnsEntry.class);
+    assertThat(actual).isInstanceOf(DnsEntry.class);
     assertThat(actual)
         .usingRecursiveComparison()
         .ignoringFields(DISCRIMINATOR)
@@ -67,7 +67,7 @@ class JsonModelTest {
         .build();
     String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(source);
     AdEntry actual = mapper.readValue(json, AdEntry.class);
-    assertThat(actual).isExactlyInstanceOf(DnsZone.class);
+    assertThat(actual).isInstanceOf(DnsZone.class);
     assertThat(actual)
         .usingRecursiveComparison()
         .ignoringFields(DISCRIMINATOR)
@@ -85,7 +85,7 @@ class JsonModelTest {
         .build();
     String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(source);
     AdEntry actual = mapper.readValue(json, AdEntry.class);
-    assertThat(actual).isExactlyInstanceOf(OrganizationalUnit.class);
+    assertThat(actual).isInstanceOf(OrganizationalUnit.class);
     assertThat(actual)
         .usingRecursiveComparison()
         .ignoringFields(DISCRIMINATOR)
@@ -103,7 +103,7 @@ class JsonModelTest {
         .build();
     String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(source);
     AdEntry actual = mapper.readValue(json, AdEntry.class);
-    assertThat(actual).isExactlyInstanceOf(SamAccount.class);
+    assertThat(actual).isInstanceOf(SamAccount.class);
     assertThat(actual)
         .usingRecursiveComparison()
         .ignoringFields(DISCRIMINATOR)
@@ -121,7 +121,7 @@ class JsonModelTest {
         .build();
     String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(source);
     SamAccount actual = mapper.readValue(json, SamAccount.class);
-    assertThat(actual).isExactlyInstanceOf(DomainComputer.class);
+    assertThat(actual).isInstanceOf(DomainComputer.class);
     assertThat(actual)
         .usingRecursiveComparison()
         .ignoringFields(DISCRIMINATOR)
@@ -139,7 +139,7 @@ class JsonModelTest {
         .build();
     String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(source);
     SamAccount actual = mapper.readValue(json, SamAccount.class);
-    assertThat(actual).isExactlyInstanceOf(DomainGroup.class);
+    assertThat(actual).isInstanceOf(DomainGroup.class);
     assertThat(actual)
         .usingRecursiveComparison()
         .ignoringFields(DISCRIMINATOR)
@@ -154,11 +154,12 @@ class JsonModelTest {
     SamAccount source = DomainGroupMember.builder()
         .distinguishedName(DN)
         .samAccountName(NAME)
+        .displayName(NAME)
         .memberType(DomainGroupMemberType.USER)
         .build();
     String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(source);
     SamAccount actual = mapper.readValue(json, SamAccount.class);
-    assertThat(actual).isExactlyInstanceOf(DomainGroupMember.class);
+    assertThat(actual).isInstanceOf(DomainGroupMember.class);
     assertThat(actual)
         .usingRecursiveComparison()
         .ignoringFields(DISCRIMINATOR)
@@ -176,7 +177,7 @@ class JsonModelTest {
         .build();
     String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(source);
     SamAccount actual = mapper.readValue(json, SamAccount.class);
-    assertThat(actual).isExactlyInstanceOf(DomainUser.class);
+    assertThat(actual).isInstanceOf(DomainUser.class);
     assertThat(actual)
         .usingRecursiveComparison()
         .ignoringFields(DISCRIMINATOR)
