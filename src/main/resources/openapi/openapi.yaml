@@ -1629,7 +1629,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DnsEntry"
+                $ref: "#/components/schemas/DnsEntryFoo"
         "400":
           description: Bad request
           content:
@@ -1708,7 +1708,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DnsEntry"
+                $ref: "#/components/schemas/DnsEntryFoo"
         "400":
           description: Bad request
           content:
@@ -1784,7 +1784,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DnsEntry"
+                $ref: "#/components/schemas/DnsEntryFoo"
         "400":
           description: Bad request
           content:
@@ -2666,8 +2666,6 @@ components:
       - $ref: "#/components/schemas/AdEntry"
       - type: object
         properties:
-          title:
-            type: string
           homeDirectory:
             type: string
           email:
@@ -2701,10 +2699,13 @@ components:
             type: string
           lastName:
             type: string
-          uidNumber:
+          gidNumber:
             type: integer
             format: int32
-          gidNumber:
+          sid:
+            $ref: "#/components/schemas/Sid"
+            description: The SID of the sam account.
+          uidNumber:
             type: integer
             format: int32
           accountExpires:
@@ -2722,12 +2723,18 @@ components:
           lastLogon:
             type: string
             format: date-time
-          initials:
+          title:
             type: string
           displayName:
             type: string
+          initials:
+            type: string
           description:
             type: string
+          memberships:
+            type: array
+            items:
+              type: string
           primaryGroupId:
             type: integer
             format: int32
@@ -2740,6 +2747,14 @@ components:
           accountControl:
             $ref: "#/components/schemas/DomainUserAccountControl"
             description: User's account control.
+          samAccountName:
+            type: string
+            description: The unique name of the sam account.
+          criticalSystemObject:
+            type: boolean
+            default: false
+            description: Determines whether this sam account is a critical system
+              object or not.
       description: The domain user.
       required:
       - accountControl
@@ -3010,7 +3025,7 @@ components:
       description: DNS zone.
       required:
       - name
-    DnsEntry:
+    DnsEntryFoo:
       allOf:
       - $ref: "#/components/schemas/AdEntry"
       - type: object
@@ -3022,13 +3037,13 @@ components:
             type: integer
             format: int32
             description: The ttl seconds of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
           serial:
             type: integer
             format: int32
             description: The serial of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
           conflict:
             type: boolean
             default: false
@@ -3457,6 +3472,9 @@ components:
             type: array
             items:
               type: string
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
           member:
             type: boolean
             default: false
@@ -3471,9 +3489,6 @@ components:
             default: false
             description: Determines whether the requested group is the primary group
               if this sam account or not.
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
           displayName:
             type: string
             description: The display name of the member.
@@ -3552,9 +3567,9 @@ components:
       type: object
       description: Information about features.
       properties:
-        dhcpEnabled:
-          type: boolean
         mailEnabled:
+          type: boolean
+        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3677,7 +3692,7 @@ components:
           type: array
           description: The content of the page.
           items:
-            $ref: "#/components/schemas/DnsEntry"
+            $ref: "#/components/schemas/DnsEntryFoo"
         sort:
           $ref: "#/components/schemas/SortOrder"
           description: The sort order.
@@ -3842,6 +3857,15 @@ components:
       description: Active directory base entry.
       discriminator:
         propertyName: _json_type
+        mapping:
+          DnsEntry: "#/components/schemas/DnsEntryFoo"
+          DnsZone: "#/components/schemas/DnsZone"
+          OrganizationalUnit: "#/components/schemas/OrganizationalUnit"
+          SamAccount: "#/components/schemas/SamAccount"
+          DomainComputer: "#/components/schemas/DomainComputer"
+          DomainGroup: "#/components/schemas/DomainGroup"
+          DomainGroupMember: "#/components/schemas/DomainGroupMember"
+          DomainUser: "#/components/schemas/DomainUser"
       properties:
         modified:
           type: string
@@ -3901,7 +3925,7 @@ components:
           description: The content of the page.
           items:
             oneOf:
-            - $ref: "#/components/schemas/DnsEntry"
+            - $ref: "#/components/schemas/DnsEntryFoo"
             - $ref: "#/components/schemas/DnsZone"
             - $ref: "#/components/schemas/DomainComputer"
             - $ref: "#/components/schemas/DomainGroup"
@@ -3949,6 +3973,11 @@ components:
       description: "The base of a 'SamAccount' like 'User', 'Group' and 'Computer'."
       discriminator:
         propertyName: _json_type
+        mapping:
+          DomainComputer: "#/components/schemas/DomainComputer"
+          DomainGroup: "#/components/schemas/DomainGroup"
+          DomainGroupMember: "#/components/schemas/DomainGroupMember"
+          DomainUser: "#/components/schemas/DomainUser"
       required:
       - samAccountName
   securitySchemes:
