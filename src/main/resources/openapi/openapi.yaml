@@ -5,7 +5,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 3.0.0-SNAPSHOT
+  version: 3.0.0
   summary: The Samba AD DC Manager API
 servers:
 - url: http://localhost:8080
@@ -2666,8 +2666,6 @@ components:
       - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
-          title:
-            type: string
           homeDirectory:
             type: string
           email:
@@ -2701,10 +2699,10 @@ components:
             type: string
           lastName:
             type: string
-          gidNumber:
+          uidNumber:
             type: integer
             format: int32
-          uidNumber:
+          gidNumber:
             type: integer
             format: int32
           accountExpires:
@@ -2722,6 +2720,8 @@ components:
           lastLogon:
             type: string
             format: date-time
+          title:
+            type: string
           initials:
             type: string
           displayName:
@@ -3507,11 +3507,11 @@ components:
       type: object
       description: Information about features.
       properties:
+        dhcpEnabled:
+          type: boolean
         mailEnabled:
           type: boolean
         rememberMeEnabled:
-          type: boolean
-        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
