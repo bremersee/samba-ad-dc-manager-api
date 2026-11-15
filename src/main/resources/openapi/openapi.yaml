@@ -2666,8 +2666,6 @@ components:
       - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
-          title:
-            type: string
           homeDirectory:
             type: string
           email:
@@ -2722,6 +2720,8 @@ components:
           lastLogon:
             type: string
             format: date-time
+          title:
+            type: string
           initials:
             type: string
           displayName:
@@ -3507,11 +3507,11 @@ components:
       type: object
       description: Information about features.
       properties:
+        dhcpEnabled:
+          type: boolean
         mailEnabled:
           type: boolean
         rememberMeEnabled:
-          type: boolean
-        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
