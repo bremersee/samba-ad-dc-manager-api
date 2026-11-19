@@ -5,7 +5,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 3.0.0
+  version: 3.0.1
   summary: The Samba AD DC Manager API
 servers:
 - url: http://localhost:8080
@@ -110,7 +110,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-user-manager
@@ -195,7 +194,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/users/{name}:
     get:
       tags:
@@ -270,7 +268,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-user-manager
@@ -341,7 +338,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     delete:
       tags:
       - ad-user-manager
@@ -388,7 +384,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/users/{name}/pwd:
     put:
       tags:
@@ -453,7 +448,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/users/{name}/avatar:
     get:
       tags:
@@ -579,7 +573,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     delete:
       tags:
       - ad-user-manager
@@ -628,7 +621,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/organizational-units:
     get:
       tags:
@@ -695,7 +687,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-organizational-unit-manager
@@ -754,7 +745,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/organizational-units/{dn}:
     get:
       tags:
@@ -808,7 +798,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-organizational-unit-manager
@@ -874,7 +863,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     delete:
       tags:
       - ad-organizational-unit-manager
@@ -921,7 +909,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/groups:
     get:
       tags:
@@ -1001,7 +988,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-group-manager
@@ -1065,7 +1051,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/groups/{name}:
     get:
       tags:
@@ -1139,7 +1124,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-group-manager
@@ -1210,7 +1194,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     delete:
       tags:
       - ad-group-manager
@@ -1256,7 +1239,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/groups/{name}/members:
     get:
       tags:
@@ -1363,7 +1345,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-group-manager
@@ -1434,7 +1415,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/dns/zones:
     get:
       tags:
@@ -1485,7 +1465,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-dns-manager
@@ -1531,7 +1510,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/dns/zones/{zone}/entries:
     get:
       tags:
@@ -1610,7 +1588,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-dns-manager
@@ -1662,7 +1639,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/dns/zones/{zone}/entries/{name}/{type}/{value}:
     get:
       tags:
@@ -1741,7 +1717,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-dns-manager
@@ -1817,7 +1792,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     delete:
       tags:
       - ad-dns-manager
@@ -1883,7 +1857,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/computers/{name}:
     get:
       tags:
@@ -1949,7 +1922,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     put:
       tags:
       - ad-computer-manager
@@ -2019,7 +1991,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     delete:
       tags:
       - ad-computer-manager
@@ -2065,7 +2036,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/users/{name}/avatar/existence:
     get:
       tags:
@@ -2133,7 +2103,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/groups/{name}/memberships:
     get:
       tags:
@@ -2216,7 +2185,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/features:
     get:
       tags:
@@ -2256,7 +2224,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/domain/password-information:
     get:
       tags:
@@ -2296,7 +2263,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/dns/zones/{zone}:
     get:
       tags:
@@ -2349,7 +2315,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
     delete:
       tags:
       - ad-dns-manager
@@ -2391,7 +2356,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/dns/dhcp/leases:
     get:
       tags:
@@ -2464,7 +2428,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/computers:
     get:
       tags:
@@ -2544,7 +2507,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/active-directory:
     get:
       tags:
@@ -2584,7 +2546,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
   /api/active-directory/{dn}:
     get:
       tags:
@@ -2658,7 +2619,6 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
-      - basic-auth: []
 components:
   schemas:
     DomainUser:
@@ -2666,6 +2626,8 @@ components:
       - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
+          title:
+            type: string
           homeDirectory:
             type: string
           email:
@@ -2699,10 +2661,10 @@ components:
             type: string
           lastName:
             type: string
-          uidNumber:
+          gidNumber:
             type: integer
             format: int32
-          gidNumber:
+          uidNumber:
             type: integer
             format: int32
           accountExpires:
@@ -2720,13 +2682,11 @@ components:
           lastLogon:
             type: string
             format: date-time
-          title:
-            type: string
-          initials:
-            type: string
           displayName:
             type: string
           description:
+            type: string
+          initials:
             type: string
           primaryGroupId:
             type: integer
@@ -3007,13 +2967,13 @@ components:
             type: integer
             format: int32
             description: The ttl seconds of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
           serial:
             type: integer
             format: int32
             description: The serial of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
           conflict:
             type: boolean
             default: false
@@ -3921,8 +3881,3 @@ components:
       required:
       - _json_type
       - samAccountName
-  securitySchemes:
-    basic-auth:
-      type: http
-      in: header
-      scheme: basic
