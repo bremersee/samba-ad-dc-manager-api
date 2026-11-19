@@ -5,7 +5,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 3.0.2-TAGGED
+  version: 3.0.3-STABLE
   summary: The Samba AD DC Manager API
 servers:
 - url: http://localhost:8080
@@ -3142,9 +3142,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3158,6 +3155,9 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3268,9 +3268,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3284,6 +3281,9 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3326,9 +3326,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3342,6 +3339,9 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3428,9 +3428,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3444,6 +3441,9 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3467,11 +3467,11 @@ components:
       type: object
       description: Information about features.
       properties:
-        dhcpEnabled:
-          type: boolean
         mailEnabled:
           type: boolean
         rememberMeEnabled:
+          type: boolean
+        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3574,9 +3574,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3590,6 +3587,9 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3662,9 +3662,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3678,6 +3675,9 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3719,9 +3719,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3735,6 +3732,9 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3802,9 +3802,6 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3818,6 +3815,9 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
