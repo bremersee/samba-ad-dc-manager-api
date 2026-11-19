@@ -2626,8 +2626,6 @@ components:
       - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
-          title:
-            type: string
           homeDirectory:
             type: string
           email:
@@ -2682,6 +2680,8 @@ components:
           lastLogon:
             type: string
             format: date-time
+          title:
+            type: string
           initials:
             type: string
           displayName:
@@ -2927,9 +2927,11 @@ components:
             description: The zone type.
           paused:
             type: boolean
-          aging:
-            type: boolean
+          fqdn:
+            type: string
           useWins:
+            type: boolean
+          aging:
             type: boolean
           allowUpdate:
             type: string
@@ -2941,8 +2943,6 @@ components:
             type: string
           useNbstat:
             type: boolean
-          fqdn:
-            type: string
           queuedForBackgroundLoad:
             type: boolean
           backgroundLoadInProgress:
@@ -2967,13 +2967,13 @@ components:
             type: integer
             format: int32
             description: The ttl seconds of this dns entry.
-          flags:
-            type: string
-            description: The flags of this dns entry.
           serial:
             type: integer
             format: int32
             description: The serial of this dns entry.
+          flags:
+            type: string
+            description: The flags of this dns entry.
           conflict:
             type: boolean
             default: false
@@ -3467,11 +3467,11 @@ components:
       type: object
       description: Information about features.
       properties:
+        dhcpEnabled:
+          type: boolean
         mailEnabled:
           type: boolean
         rememberMeEnabled:
-          type: boolean
-        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
