@@ -12,7 +12,7 @@
   </parent>
 
   <artifactId>samba-ad-dc-manager-api</artifactId>
-  <version>3.0.2-SNAPSHOT</version>
+  <version>3.0.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Samba AD DC Manager API</name>

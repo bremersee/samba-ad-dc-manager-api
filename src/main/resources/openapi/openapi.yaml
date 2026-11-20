@@ -5,7 +5,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 3.0.2-SNAPSHOT
+  version: 3.0.4-SNAPSHOT
   summary: The Samba AD DC Manager API
 servers:
 - url: http://localhost:8080
@@ -21,8 +21,8 @@ tags:
   description: RESTful api for dns.
 - name: ad-group-manager
   description: RESTful api for groups.
-- name: ad-user-avatar-manager
-  description: RESTful api for user avatars.
+- name: ad-user-public-manager
+  description: RESTful public api for users.
 - name: ad-computer-manager
   description: RESTful api for computers.
 - name: ad-user-manager
@@ -34,7 +34,6 @@ paths:
     get:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Get user page.
       operationId: getUsers
       parameters:
@@ -113,7 +112,6 @@ paths:
     put:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Add user.
       operationId: addUser
       parameters:
@@ -198,7 +196,6 @@ paths:
     get:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Get user.
       operationId: getUser
       parameters:
@@ -271,7 +268,6 @@ paths:
     put:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Update user.
       operationId: updateUser
       parameters:
@@ -341,7 +337,6 @@ paths:
     delete:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Delete user.
       operationId: deleteUser
       parameters:
@@ -388,7 +383,6 @@ paths:
     put:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Update user password.
       operationId: updateUserPassword
       parameters:
@@ -451,8 +445,7 @@ paths:
   /api/users/{name}/avatar:
     get:
       tags:
-      - ad-user-manager
-      - ad-user-avatar-manager
+      - ad-user-public-manager
       description: Get user avatar.
       operationId: getUserAvatar
       parameters:
@@ -520,7 +513,6 @@ paths:
     put:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Update user avatar.
       operationId: updateUserAvatar
       parameters:
@@ -576,7 +568,6 @@ paths:
     delete:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Remove user avatar.
       operationId: removeUserAvatar
       parameters:
@@ -2040,7 +2031,6 @@ paths:
     get:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Checks whether the avatar of the user is present in the active
         directory.
       operationId: existsAvatarInActiveDirectory
@@ -2626,11 +2616,11 @@ components:
       - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
+          title:
+            type: string
           homeDirectory:
             type: string
           email:
-            type: string
-          uid:
             type: string
           userPrincipalName:
             type: string
@@ -2639,6 +2629,8 @@ components:
           passwordLastSet:
             type: string
             format: date-time
+          uid:
+            type: string
           company:
             type: string
           department:
@@ -2680,8 +2672,6 @@ components:
           lastLogon:
             type: string
             format: date-time
-          title:
-            type: string
           initials:
             type: string
           displayName:
@@ -2927,12 +2917,6 @@ components:
             description: The zone type.
           paused:
             type: boolean
-          fqdn:
-            type: string
-          useWins:
-            type: boolean
-          aging:
-            type: boolean
           allowUpdate:
             type: string
           autoCreated:
@@ -2941,8 +2925,14 @@ components:
             type: boolean
           dataFile:
             type: string
+          useWins:
+            type: boolean
           useNbstat:
             type: boolean
+          aging:
+            type: boolean
+          fqdn:
+            type: string
           queuedForBackgroundLoad:
             type: boolean
           backgroundLoadInProgress:
@@ -3380,6 +3370,9 @@ components:
       - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
           member:
             type: boolean
             default: false
@@ -3394,9 +3387,6 @@ components:
             default: false
             description: Determines whether the requested group is the primary group
               if this sam account or not.
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
           displayName:
             type: string
             description: The display name of the member.
