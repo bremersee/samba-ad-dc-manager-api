@@ -7,7 +7,7 @@
   <parent>
     <artifactId>samba-ad-dc-manager-api</artifactId>
     <groupId>org.bremersee</groupId>
-    <version>3.0.3-STABLE</version>
+    <version>3.0.4-STABLE</version>
   </parent>
 
   <artifactId>samba-ad-dc-manager-api-spring</artifactId>

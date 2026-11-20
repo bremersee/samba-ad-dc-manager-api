@@ -5,7 +5,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 3.0.3-STABLE
+  version: 3.0.4-STABLE
   summary: The Samba AD DC Manager API
 servers:
 - url: http://localhost:8080
@@ -21,8 +21,8 @@ tags:
   description: RESTful api for dns.
 - name: ad-group-manager
   description: RESTful api for groups.
-- name: ad-user-avatar-manager
-  description: RESTful api for user avatars.
+- name: ad-user-public-manager
+  description: RESTful public api for users.
 - name: ad-computer-manager
   description: RESTful api for computers.
 - name: ad-user-manager
@@ -34,7 +34,6 @@ paths:
     get:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Get user page.
       operationId: getUsers
       parameters:
@@ -113,7 +112,6 @@ paths:
     put:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Add user.
       operationId: addUser
       parameters:
@@ -198,7 +196,6 @@ paths:
     get:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Get user.
       operationId: getUser
       parameters:
@@ -271,7 +268,6 @@ paths:
     put:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Update user.
       operationId: updateUser
       parameters:
@@ -341,7 +337,6 @@ paths:
     delete:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Delete user.
       operationId: deleteUser
       parameters:
@@ -388,7 +383,6 @@ paths:
     put:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Update user password.
       operationId: updateUserPassword
       parameters:
@@ -451,8 +445,7 @@ paths:
   /api/users/{name}/avatar:
     get:
       tags:
-      - ad-user-manager
-      - ad-user-avatar-manager
+      - ad-user-public-manager
       description: Get user avatar.
       operationId: getUserAvatar
       parameters:
@@ -520,7 +513,6 @@ paths:
     put:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Update user avatar.
       operationId: updateUserAvatar
       parameters:
@@ -576,7 +568,6 @@ paths:
     delete:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Remove user avatar.
       operationId: removeUserAvatar
       parameters:
@@ -2040,7 +2031,6 @@ paths:
     get:
       tags:
       - ad-user-manager
-      - ad-user-avatar-manager
       description: Checks whether the avatar of the user is present in the active
         directory.
       operationId: existsAvatarInActiveDirectory
@@ -2626,11 +2616,11 @@ components:
       - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
+          title:
+            type: string
           homeDirectory:
             type: string
           email:
-            type: string
-          uid:
             type: string
           userPrincipalName:
             type: string
@@ -2639,6 +2629,8 @@ components:
           passwordLastSet:
             type: string
             format: date-time
+          uid:
+            type: string
           company:
             type: string
           department:
@@ -2680,8 +2672,6 @@ components:
           lastLogon:
             type: string
             format: date-time
-          title:
-            type: string
           initials:
             type: string
           displayName:
@@ -3142,6 +3132,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3155,9 +3148,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3268,6 +3258,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3281,9 +3274,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3326,6 +3316,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3339,9 +3332,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3380,9 +3370,6 @@ components:
       - $ref: "#/components/schemas/SamAccount"
       - type: object
         properties:
-          memberType:
-            $ref: "#/components/schemas/DomainGroupMemberType"
-            description: The type of the member.
           member:
             type: boolean
             default: false
@@ -3397,6 +3384,9 @@ components:
             default: false
             description: Determines whether the requested group is the primary group
               if this sam account or not.
+          memberType:
+            $ref: "#/components/schemas/DomainGroupMemberType"
+            description: The type of the member.
           displayName:
             type: string
             description: The display name of the member.
@@ -3428,6 +3418,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3441,9 +3434,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3467,11 +3457,11 @@ components:
       type: object
       description: Information about features.
       properties:
+        dhcpEnabled:
+          type: boolean
         mailEnabled:
           type: boolean
         rememberMeEnabled:
-          type: boolean
-        dhcpEnabled:
           type: boolean
     PasswordComplexity:
       type: string
@@ -3574,6 +3564,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3587,9 +3580,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3662,6 +3652,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3675,9 +3668,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3719,6 +3709,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3732,9 +3725,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
@@ -3802,6 +3792,9 @@ components:
           type: integer
           format: int32
           description: The total number of pages.
+        previousAvailable:
+          type: boolean
+          description: Indicates whether a previous page or slice is available.
         contentPresent:
           type: boolean
           description: Indicates whether the content is present.
@@ -3815,9 +3808,6 @@ components:
         last:
           type: boolean
           description: Indicates whether the page or slice is the last.
-        previousAvailable:
-          type: boolean
-          description: Indicates whether a previous page or slice is available.
         content:
           type: array
           description: The content of the page.
